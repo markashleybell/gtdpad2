@@ -14,5 +14,7 @@ void Main()
         password: "test123"
     );
     
-    new PasswordHasher<User>().HashPassword(user, user.Password).Dump();
+    // new PasswordHasher<User>().HashPassword(user, user.Password).Dump();
+    
+    
 }
