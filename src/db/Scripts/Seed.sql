@@ -6,7 +6,7 @@ BEGIN
             [Description]
         )
     VALUES
-        (1, 'Rich Text'),
+        (1, 'Rich Text Block'),
         (2, 'Image Block'),
         (3, 'List')
 END
@@ -23,7 +23,7 @@ BEGIN
     VALUES (
         'df77778f-2ef3-49af-a1a8-b1f064891ef5',
         'testuser@gtdpad.com',
-        'AQAAAAEAACcQAAAAEMxaC9ulPnv8pSBYzgZbfl1T/XV5bycncWD9+W/hyvtYScpeJ+HSZuDPRds9FbmDQg==' -- test123
+        'AQAAAAEAACcQAAAAEFTI0bden02dzzd79voUdie2183kdSBuQkjY1NUyh6AqREZcdimX0Ys8b4RFVsJFdg==' -- !gtdpad-test2020
     )
 END
 GO

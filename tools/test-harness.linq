@@ -2,19 +2,32 @@
   <Reference Relative="..\src\gtdpad\bin\Debug\netcoreapp3.1\gtdpad.dll">C:\Src\gtdpad2\src\gtdpad\bin\Debug\netcoreapp3.1\gtdpad.dll</Reference>
   <Namespace>gtdpad.Domain</Namespace>
   <Namespace>Microsoft.AspNetCore.Identity</Namespace>
+  <Namespace>gtdpad.Services</Namespace>
+  <Namespace>gtdpad.Support</Namespace>
+  <Namespace>System.Threading.Tasks</Namespace>
 </Query>
 
-void Main()
+async Task Main()
 {
     // Guid.NewGuid().Dump();
     
     var user = new User(
         id: new Guid("df77778f-2ef3-49af-a1a8-b1f064891ef5"), 
         email: "testuser@gtdpad.com", 
-        password: "test123"
+        password: "!gtdpad-test2020"
     );
-    
+
     // new PasswordHasher<User>().HashPassword(user, user.Password).Dump();
+
+    var settings = new Settings {
+        ConnectionStrings = new Dictionary<string, string> {
+            { "Main", "Server=localhost;Database=gtdpad;Trusted_Connection=yes" }
+        }
+    };
     
+    var repository = new SqlServerRepository(settings, user.Email);
     
+    var r = await repository.FindUserByEmail(user.Email);
+    
+    r.Dump();
 }

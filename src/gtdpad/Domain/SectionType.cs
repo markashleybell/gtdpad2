@@ -2,7 +2,7 @@ namespace gtdpad.Domain
 {
     public enum SectionType
     {
-        RichText = 1,
+        RichTextBlock = 1,
         ImageBlock,
         List
     }

@@ -17,8 +17,17 @@ namespace gtdpad.Services
         public SqlServerRepository(
             IOptionsMonitor<Settings> optionsMonitor,
             string username)
+            : this(
+                optionsMonitor.CurrentValue,
+                username)
         {
-            _cfg = optionsMonitor.CurrentValue;
+        }
+
+        public SqlServerRepository(
+            Settings settings,
+            string username)
+        {
+            _cfg = settings;
             _username = username;
         }
 
