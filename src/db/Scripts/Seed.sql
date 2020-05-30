@@ -25,5 +25,19 @@ BEGIN
         'testuser@gtdpad.com',
         'AQAAAAEAACcQAAAAEFTI0bden02dzzd79voUdie2183kdSBuQkjY1NUyh6AqREZcdimX0Ys8b4RFVsJFdg==' -- !gtdpad-test2020
     )
+
+    INSERT INTO
+        Pages(
+            [ID],
+            [Owner],
+            [Title],
+            [Url]
+        )
+    VALUES (
+        '796ac644-ff8e-47da-bbdc-ca8f822ce5f6',
+        'df77778f-2ef3-49af-a1a8-b1f064891ef5',
+        'TEST PAGE',
+        'test-page'
+    )
 END
 GO

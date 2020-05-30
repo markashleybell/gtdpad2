@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Security.Claims;
 using gtdpad.Controllers;
 using gtdpad.Services;
 using gtdpad.Support;
@@ -25,8 +28,9 @@ namespace gtdpad
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration.GetConnectionString("Main");
             const string authenticationScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+            var connectionString = Configuration.GetConnectionString("Main");
 
             services.AddHttpContextAccessor();
 
@@ -51,8 +55,15 @@ namespace gtdpad
             services.AddScoped<IRepository, SqlServerRepository>(sp => {
                 var ctxAccessor = sp.GetRequiredService<IHttpContextAccessor>();
                 var optionsMonitor = sp.GetRequiredService<IOptionsMonitor<Settings>>();
-                var userName = ctxAccessor.HttpContext.User.Identity.Name;
-                return new SqlServerRepository(optionsMonitor, userName);
+
+                var sidClaim = ctxAccessor.HttpContext.User.Claims
+                    .SingleOrDefault(c => c.Type == ClaimTypes.Sid);
+
+                var userId = sidClaim is object
+                    ? new Guid(sidClaim.Value)
+                    : default(Guid?);
+
+                return new SqlServerRepository(optionsMonitor, userId);
             });
 
             services.AddControllersWithViews();
