@@ -32,7 +32,12 @@ namespace gtdpad.Services
         }
 
         public async Task DeletePage(Guid id) =>
-            throw new NotImplementedException();
+             await WithConnection(async conn => {
+                 await conn.ExecuteAsync(
+                     sql: "DELETE FROM Pages WHERE ID = @ID AND Owner = @Owner",
+                     param: new { ID = id, Owner = _userId }
+                 );
+             });
 
         public async Task<User> FindUserByEmail(string email) =>
             await WithConnection(async conn => {
@@ -51,7 +56,18 @@ namespace gtdpad.Services
             });
 
         public async Task PersistPage(Page page) =>
-            throw new NotImplementedException();
+            await WithConnection(async conn => {
+                var existingPage = await GetPage(page.ID);
+
+                var sql = existingPage is null
+                    ? "INSERT INTO Pages (ID, Owner, Title, Url) VALUES (@ID, @Owner, @Title, @Url)"
+                    : "UPDATE Pages SET Title = @Title, Url = @Url WHERE ID = @ID";
+
+                await conn.ExecuteAsync(
+                    sql: sql,
+                    param: new { page.ID, Owner = _userId, page.Title, page.Url }
+                );
+            });
 
         private async Task WithConnection(Func<SqlConnection, Task> action)
         {

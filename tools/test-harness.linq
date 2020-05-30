@@ -25,9 +25,21 @@ async Task Main()
         }
     };
     
-    var repository = new SqlServerRepository(settings, user.Email);
+    var repository = new SqlServerRepository(settings, user.ID);
     
-    var r = await repository.FindUserByEmail(user.Email);
+    // (await repository.FindUserByEmail(user.Email)).Dump();
     
-    r.Dump();
+    var pageID = new Guid("796ac644-ff8e-47da-bbdc-ca8f822ce5f6");
+    
+    // (await repository.GetPage(pageID)).Dump();
+    
+    var page = new Page(
+        id: new Guid("576bac60-6a42-4087-9730-a317ca6012f6"),
+        title: "NEW PAGE",
+        url: "new-page"
+    );
+    
+    // await repository.PersistPage(page);
+    
+    await repository.DeletePage(page.ID);
 }
