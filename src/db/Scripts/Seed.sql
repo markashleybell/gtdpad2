@@ -31,7 +31,7 @@ BEGIN
             [ID],
             [Owner],
             [Title],
-            [Url]
+            [Slug]
         )
     VALUES (
         '796ac644-ff8e-47da-bbdc-ca8f822ce5f6',

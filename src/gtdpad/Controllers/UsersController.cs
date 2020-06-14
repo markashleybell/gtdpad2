@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using static gtdpad.Functions.Functions;
 using gtdpad.Models;
 using gtdpad.Services;
 using gtdpad.Support;
@@ -26,6 +25,11 @@ namespace gtdpad.Controllers
             IDateTimeService dateTimeService,
             IUserService userService)
         {
+            if (optionsMonitor is null)
+            {
+                throw new ArgumentNullException(nameof(optionsMonitor));
+            }
+
             _cfg = optionsMonitor.CurrentValue;
             _httpContextAccessor = httpContextAccessor;
             _dateTimeService = dateTimeService;
@@ -46,6 +50,11 @@ namespace gtdpad.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            if (model is null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);

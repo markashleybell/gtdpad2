@@ -28,6 +28,11 @@ namespace gtdpad.Support
 
         public static IEnumerable<IDataRecord> AsDataRecords(this IEnumerable<Guid> ids)
         {
+            if (ids is null)
+            {
+                throw new ArgumentNullException(nameof(ids));
+            }
+
             var records = new List<MDSC.SqlDataRecord>();
 
             var definition = new MDSC.SqlMetaData("ID", SqlDbType.UniqueIdentifier);

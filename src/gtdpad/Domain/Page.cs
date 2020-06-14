@@ -9,11 +9,11 @@ namespace gtdpad.Domain
         public Page(
             Guid id,
             string title,
-            string url)
+            string slug)
             : this(
                   id,
                   title,
-                  url,
+                  slug,
                   default)
         {
         }
@@ -21,12 +21,12 @@ namespace gtdpad.Domain
         public Page(
             Guid id,
             string title,
-            string url,
+            string slug,
             IEnumerable<Section> sections)
         {
             ID = id;
             Title = title;
-            Url = url;
+            Slug = slug;
             Sections = sections ?? Enumerable.Empty<Section>();
         }
 
@@ -34,7 +34,7 @@ namespace gtdpad.Domain
 
         public string Title { get; }
 
-        public string Url { get; }
+        public string Slug { get; }
 
         public IEnumerable<Section> Sections { get; set; }
     }

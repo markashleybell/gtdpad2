@@ -15,7 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using static gtdpad.Functions.Functions;
+using static gtdpad.Functions;
 
 namespace gtdpad
 {
@@ -71,7 +71,11 @@ namespace gtdpad
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             app.UseHsts();
 
             app.UseHttpsRedirection();

@@ -33,13 +33,17 @@ async Task Main()
     
     // (await repository.GetPage(pageID)).Dump();
     
+    var newPageID = new Guid("576bac60-6a42-4087-9730-a317ca6012f6");
+    
     var page = new Page(
-        id: new Guid("576bac60-6a42-4087-9730-a317ca6012f6"),
+        id: newPageID,
         title: "NEW PAGE",
-        url: "new-page"
+        slug: "new-page"
     );
     
     // await repository.PersistPage(page);
     
-    await repository.DeletePage(page.ID);
+    // (await repository.GetPage(newPageID)).Dump();
+    
+    // await repository.DeletePage(page.ID);
 }
