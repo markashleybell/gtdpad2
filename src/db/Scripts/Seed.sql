@@ -25,7 +25,11 @@ BEGIN
         'testuser@gtdpad.com',
         'AQAAAAEAACcQAAAAEFTI0bden02dzzd79voUdie2183kdSBuQkjY1NUyh6AqREZcdimX0Ys8b4RFVsJFdg==' -- !gtdpad-test2020
     )
+END
+GO
 
+IF NOT EXISTS (SELECT * FROM Users)
+BEGIN
     INSERT INTO
         Pages(
             [ID],

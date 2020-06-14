@@ -46,4 +46,6 @@ async Task Main()
     // (await repository.GetPage(newPageID)).Dump();
     
     // await repository.DeletePage(page.ID);
+    
+    (await repository.GetRichTextBlock(new Guid("cb60dd53-8568-499d-b640-52b7d4b5602d"))).Dump();
 }

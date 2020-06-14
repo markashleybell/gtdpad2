@@ -60,9 +60,7 @@ namespace gtdpad.Controllers
                 return View(model);
             }
 
-            var (valid, id) = await _userService
-                .ValidateLogin(model.Email, model.Password)
-                .ConfigureAwait(false);
+            var (valid, id) = await _userService.ValidateLogin(model.Email, model.Password);
 
             if (!valid)
             {
@@ -89,9 +87,7 @@ namespace gtdpad.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await _httpContextAccessor.HttpContext
-                .SignOutAsync()
-                .ConfigureAwait(false);
+            await _httpContextAccessor.HttpContext.SignOutAsync();
 
             return Redirect(SiteRootUri.ToString());
         }

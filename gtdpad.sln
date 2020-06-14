@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gtdpad", "src\gtdpad\gtdpad
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "db", "src\db\db.sqlproj", "{F89CC37F-7806-4B37-9AD6-62FECB4BBA32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{AB690EF6-E75B-4EFA-830A-E920E156521B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{F89CC37F-7806-4B37-9AD6-62FECB4BBA32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F89CC37F-7806-4B37-9AD6-62FECB4BBA32}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F89CC37F-7806-4B37-9AD6-62FECB4BBA32}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{AB690EF6-E75B-4EFA-830A-E920E156521B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB690EF6-E75B-4EFA-830A-E920E156521B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB690EF6-E75B-4EFA-830A-E920E156521B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB690EF6-E75B-4EFA-830A-E920E156521B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

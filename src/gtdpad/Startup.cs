@@ -63,7 +63,7 @@ namespace gtdpad
                     ? new Guid(sidClaim.Value)
                     : default(Guid?);
 
-                return new SqlServerRepository(optionsMonitor, userId);
+                return new SqlServerRepository(optionsMonitor);
             });
 
             services.AddControllersWithViews();
