@@ -1,4 +1,6 @@
 using System;
+using gtdpad.Domain;
+using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;
 using static gtdpad.Constants;
 
@@ -12,15 +14,8 @@ namespace gtdpad
 #pragma warning disable CA1055 // Uri return values should not be strings
         public static string GetUrl(string controllerName, string actionName)
         {
-            if (controllerName is null)
-            {
-                throw new ArgumentNullException(controllerName);
-            }
-
-            if (actionName is null)
-            {
-                throw new ArgumentNullException(actionName);
-            }
+            Guard.AgainstNull(controllerName, nameof(controllerName));
+            Guard.AgainstNull(actionName, nameof(actionName));
 
             var controllerRoute = controllerName.Replace(ControllerSuffix, string.Empty, StringComparison.OrdinalIgnoreCase);
 

@@ -15,5 +15,8 @@ namespace gtdpad.Domain
         public Guid ID { get; set; }
 
         public string Text { get; }
+
+        public ListItem With(string text = default) =>
+            new ListItem(ID, text ?? Text);
     }
 }

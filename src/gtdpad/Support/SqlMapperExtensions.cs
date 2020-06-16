@@ -28,6 +28,8 @@ namespace gtdpad.Support
 
         public static IEnumerable<IDataRecord> AsDataRecords(this IEnumerable<Guid> ids)
         {
+            Guard.AgainstNull(ids, nameof(ids));
+
             if (ids is null)
             {
                 throw new ArgumentNullException(nameof(ids));

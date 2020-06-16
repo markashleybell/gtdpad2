@@ -1,4 +1,5 @@
 using System;
+using gtdpad.Support;
 
 namespace gtdpad.Domain
 {
@@ -9,20 +10,9 @@ namespace gtdpad.Domain
             Guid owner,
             string title)
         {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentOutOfRangeException(nameof(id), "Section must have an ID.");
-            }
-
-            if (owner == Guid.Empty)
-            {
-                throw new ArgumentOutOfRangeException(nameof(owner), "Section must have an owner.");
-            }
-
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentOutOfRangeException(nameof(title), "Section must have a Title.");
-            }
+            Guard.AgainstEmpty(id, nameof(id));
+            Guard.AgainstEmpty(owner, nameof(owner));
+            Guard.AgainstNullOrEmpty(title, nameof(title));
 
             ID = id;
             Owner = owner;

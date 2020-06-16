@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Images]
 (
 	[ID] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [PK_Images] PRIMARY KEY,
+    [ImageBlock] UNIQUEIDENTIFIER NOT NULL,
     [FileExtension] NVARCHAR(16) NOT NULL,
-    CONSTRAINT [FK_Images_Sections] FOREIGN KEY ([ID]) REFERENCES [Sections] ([ID])
+    CONSTRAINT [FK_Images_Sections] FOREIGN KEY ([ImageBlock]) REFERENCES [Sections] ([ID])
 )

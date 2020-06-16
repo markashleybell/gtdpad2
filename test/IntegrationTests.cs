@@ -51,9 +51,9 @@ namespace test
 
             var pageAfterUpdate = await repository.GetPage(updatedPage.ID);
 
-            Assert.AreEqual(pageAfterUpdate.ID, page.ID);
-            Assert.AreEqual(pageAfterUpdate.Title, updatedPage.Title);
-            Assert.AreEqual(pageAfterUpdate.Slug, updatedPage.Slug);
+            Assert.AreEqual(page.ID, pageAfterUpdate.ID);
+            Assert.AreEqual(updatedPage.Title, pageAfterUpdate.Title);
+            Assert.AreEqual(updatedPage.Slug, pageAfterUpdate.Slug);
 
             await repository.DeletePage(page.ID);
 
@@ -100,9 +100,9 @@ namespace test
 
             var richTextBlockAfterUpdate = await repository.GetRichTextBlock(updatedRichTextBlock.ID);
 
-            Assert.AreEqual(richTextBlockAfterUpdate.ID, richTextBlock.ID);
-            Assert.AreEqual(richTextBlockAfterUpdate.Title, updatedRichTextBlock.Title);
-            Assert.AreEqual(richTextBlockAfterUpdate.Text, updatedRichTextBlock.Text);
+            Assert.AreEqual(richTextBlock.ID, richTextBlockAfterUpdate.ID);
+            Assert.AreEqual(updatedRichTextBlock.Title, richTextBlockAfterUpdate.Title);
+            Assert.AreEqual(updatedRichTextBlock.Text, richTextBlockAfterUpdate.Text);
 
             await repository.DeleteRichTextBlock(richTextBlock.ID);
 
@@ -146,8 +146,8 @@ namespace test
 
             var imageBlockAfterUpdate = await repository.GetImageBlock(updatedImageBlock.ID);
 
-            Assert.AreEqual(imageBlockAfterUpdate.ID, imageBlock.ID);
-            Assert.AreEqual(imageBlockAfterUpdate.Title, updatedImageBlock.Title);
+            Assert.AreEqual(imageBlock.ID, imageBlockAfterUpdate.ID);
+            Assert.AreEqual(updatedImageBlock.Title, imageBlockAfterUpdate.Title);
 
             await repository.DeleteImageBlock(imageBlock.ID);
 
@@ -191,14 +191,118 @@ namespace test
 
             var listAfterUpdate = await repository.GetList(updatedList.ID);
 
-            Assert.AreEqual(listAfterUpdate.ID, list.ID);
-            Assert.AreEqual(listAfterUpdate.Title, updatedList.Title);
+            Assert.AreEqual(list.ID, listAfterUpdate.ID);
+            Assert.AreEqual(updatedList.Title, listAfterUpdate.Title);
 
             await repository.DeleteList(list.ID);
 
             var listAfterDelete = await repository.GetList(list.ID);
 
             Assert.AreEqual(default(g.List), listAfterDelete);
+        }
+
+        [Test]
+        public async Task Image()
+        {
+            var repository = new SqlServerRepository(_testSettings);
+
+            var page = new Page(
+                id: Guid.NewGuid(),
+                owner: _testUser.ID,
+                title: "PAGE",
+                slug: "page"
+            );
+
+            await repository.PersistPage(page);
+
+            var imageBlock = new ImageBlock(
+                id: Guid.NewGuid(),
+                owner: _testUser.ID,
+                title: "IMAGE BLOCK"
+            );
+
+            await repository.PersistImageBlock(imageBlock, page.ID);
+
+            var newImage = new Image(
+                id: Guid.NewGuid(),
+                fileExtension: ".jpg"
+            );
+
+            await repository.PersistImage(newImage, imageBlock.ID);
+
+            var image = await repository.GetImage(newImage.ID);
+
+            Assert.AreEqual(newImage.ID, image.ID);
+            Assert.AreEqual(newImage.FileExtension, image.FileExtension);
+
+            var updatedImage = image.With(
+                fileExtension: ".png"
+            );
+
+            await repository.PersistImage(updatedImage, imageBlock.ID);
+
+            var imageAfterUpdate = await repository.GetImage(updatedImage.ID);
+
+            Assert.AreEqual(imageAfterUpdate.ID, newImage.ID);
+            Assert.AreEqual(imageAfterUpdate.FileExtension, updatedImage.FileExtension);
+
+            await repository.DeleteImage(image.ID);
+
+            var imageAfterDelete = await repository.GetImage(image.ID);
+
+            Assert.AreEqual(default(Image), imageAfterDelete);
+        }
+
+        [Test]
+        public async Task ListItem()
+        {
+            var repository = new SqlServerRepository(_testSettings);
+
+            var page = new Page(
+                id: Guid.NewGuid(),
+                owner: _testUser.ID,
+                title: "PAGE",
+                slug: "page"
+            );
+
+            await repository.PersistPage(page);
+
+            var list = new g.List(
+                id: Guid.NewGuid(),
+                owner: _testUser.ID,
+                title: "LIST"
+            );
+
+            await repository.PersistList(list, page.ID);
+
+            var newListItem = new ListItem(
+                id: Guid.NewGuid(),
+                text: "LIST ITEM"
+            );
+
+            await repository.PersistListItem(newListItem, list.ID);
+
+            var listItem = await repository.GetListItem(newListItem.ID);
+
+            Assert.AreEqual(newListItem.ID, listItem.ID);
+            Assert.AreEqual(newListItem.Text, listItem.Text);
+
+            var updatedListItem = listItem.With(
+                text: "LIST ITEM UPDATED"
+            );
+
+            await repository.PersistListItem(updatedListItem, list.ID);
+
+            var listItemAfterUpdate = await repository.GetListItem(updatedListItem.ID);
+
+            Assert.AreEqual(listItemAfterUpdate.ID, newListItem.ID);
+            Assert.AreEqual(listItemAfterUpdate.Text, updatedListItem.Text);
+
+            await repository.DeleteListItem(listItem.ID);
+
+            var listItemAfterDelete = await repository.GetListItem(listItem.ID);
+
+            Assert.AreEqual(default(ListItem), listItemAfterDelete);
         }
     }
 }

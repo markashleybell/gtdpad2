@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using gtdpad.Support;
 
 namespace gtdpad.Domain
 {
@@ -27,25 +28,10 @@ namespace gtdpad.Domain
             string slug,
             IEnumerable<Section> sections)
         {
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentOutOfRangeException(nameof(id), "Page must have an ID.");
-            }
-
-            if (owner == Guid.Empty)
-            {
-                throw new ArgumentOutOfRangeException(nameof(owner), "Page must have an owner.");
-            }
-
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentOutOfRangeException(nameof(id), "Page must have a title.");
-            }
-
-            if (string.IsNullOrWhiteSpace(slug))
-            {
-                throw new ArgumentOutOfRangeException(nameof(slug), "Page must have a slug.");
-            }
+            Guard.AgainstEmpty(id, nameof(id));
+            Guard.AgainstEmpty(owner, nameof(owner));
+            Guard.AgainstNullOrEmpty(title, nameof(title));
+            Guard.AgainstNullOrEmpty(slug, nameof(slug));
 
             ID = id;
             Owner = owner;

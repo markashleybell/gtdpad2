@@ -20,6 +20,14 @@ namespace gtdpad.Services
         public SqlServerRepository(Settings settings) =>
             _cfg = settings;
 
+        public async Task DeleteImage(Guid id) =>
+            await WithConnection(async conn => {
+                await conn.ExecuteAsync(
+                    sql: "DELETE FROM Images WHERE ID = @ID",
+                    param: new { ID = id }
+                );
+            });
+
         public async Task DeleteImageBlock(Guid id) =>
             await WithConnection(async conn => {
                 await conn.ExecuteAsync(
@@ -36,6 +44,14 @@ namespace gtdpad.Services
                 );
             });
 
+        public async Task DeleteListItem(Guid id) =>
+            await WithConnection(async conn => {
+                await conn.ExecuteAsync(
+                    sql: "DELETE FROM ListItems WHERE ID = @ID",
+                    param: new { ID = id }
+                );
+            });
+
         public async Task DeletePage(Guid id) =>
              await WithConnection(async conn => {
                  await conn.ExecuteAsync(
@@ -46,7 +62,7 @@ namespace gtdpad.Services
 
         public async Task DeleteRichTextBlock(Guid id) =>
             await WithConnection(async conn => {
-                var sql = @"
+                const string sql = @"
 DELETE FROM TextBlocks WHERE ID = @ID;
 
 DELETE FROM Sections WHERE ID = @ID;";
@@ -62,6 +78,23 @@ DELETE FROM Sections WHERE ID = @ID;";
                 return await conn.QuerySingleOrDefaultAsync<User>(
                     sql: "SELECT * FROM Users WHERE Email = @Email",
                     param: new { Email = email }
+                );
+            });
+
+        public async Task<Image> GetImage(Guid id) =>
+            await WithConnection(async conn => {
+                const string sql = @"
+SELECT
+    i.ID,
+    i.FileExtension
+FROM
+    Images i
+WHERE
+    i.ID = @ID";
+
+                return await conn.QuerySingleOrDefaultAsync<Image>(
+                    sql: sql,
+                    param: new { ID = id }
                 );
             });
 
@@ -101,6 +134,23 @@ WHERE
                 );
             });
 
+        public async Task<ListItem> GetListItem(Guid id) =>
+            await WithConnection(async conn => {
+                const string sql = @"
+SELECT
+    li.ID,
+    li.Text
+FROM
+    ListItems li
+WHERE
+    li.ID = @ID";
+
+                return await conn.QuerySingleOrDefaultAsync<ListItem>(
+                    sql: sql,
+                    param: new { ID = id }
+                );
+            });
+
         public async Task<Page> GetPage(Guid id) =>
             await WithConnection(async conn => {
                 return await conn.QuerySingleOrDefaultAsync<Page>(
@@ -130,15 +180,43 @@ WHERE
                 );
             });
 
+        public async Task PersistImage(Image image, Guid imageBlockID) =>
+            await WithConnection(async conn => {
+                const string insertSql = @"
+INSERT INTO Images
+    (ID, ImageBlock, FileExtension)
+VALUES
+    (@ID, @ImageBlock, @FileExtension);";
+
+                const string updateSql = @"
+UPDATE Images SET FileExtension = @FileExtension WHERE ID = @ID;
+";
+
+                var existing = await GetImage(image.ID);
+
+                var sql = existing is null
+                    ? insertSql
+                    : updateSql;
+
+                await conn.ExecuteAsync(
+                    sql: sql,
+                    param: new {
+                        image.ID,
+                        ImageBlock = imageBlockID,
+                        image.FileExtension
+                    }
+                );
+            });
+
         public async Task PersistImageBlock(ImageBlock imageBlock, Guid pageID) =>
             await WithConnection(async conn => {
-                var insertSql = @"
+                const string insertSql = @"
 INSERT INTO Sections
     (ID, Owner, Page, Title, Type)
 VALUES
     (@ID, @Owner, @Page, @Title, 2);";
 
-                var updateSql = @"
+                const string updateSql = @"
 UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
 ";
 
@@ -161,13 +239,13 @@ UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
 
         public async Task PersistList(List list, Guid pageID) =>
             await WithConnection(async conn => {
-                var insertSql = @"
+                const string insertSql = @"
 INSERT INTO Sections
     (ID, Owner, Page, Title, Type)
 VALUES
     (@ID, @Owner, @Page, @Title, 3);";
 
-                var updateSql = @"
+                const string updateSql = @"
 UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
 ";
 
@@ -184,6 +262,34 @@ UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
                         list.Owner,
                         Page = pageID,
                         list.Title
+                    }
+                );
+            });
+
+        public async Task PersistListItem(ListItem listItem, Guid listID) =>
+            await WithConnection(async conn => {
+                const string insertSql = @"
+INSERT INTO ListItems
+    (ID, List, Text)
+VALUES
+    (@ID, @List, @Text);";
+
+                const string updateSql = @"
+UPDATE ListItems SET Text = @Text WHERE ID = @ID;
+";
+
+                var existing = await GetListItem(listItem.ID);
+
+                var sql = existing is null
+                    ? insertSql
+                    : updateSql;
+
+                await conn.ExecuteAsync(
+                    sql: sql,
+                    param: new {
+                        listItem.ID,
+                        List = listID,
+                        listItem.Text
                     }
                 );
             });
@@ -209,7 +315,7 @@ UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
 
         public async Task PersistRichTextBlock(RichTextBlock richTextBlock, Guid pageID) =>
             await WithConnection(async conn => {
-                var insertSql = @"
+                const string insertSql = @"
 INSERT INTO Sections
     (ID, Owner, Page, Title, Type)
 VALUES
@@ -220,7 +326,7 @@ INSERT INTO TextBlocks
 VALUES
     (@ID, @Text);";
 
-                var updateSql = @"
+                const string updateSql = @"
 UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
 
 UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;

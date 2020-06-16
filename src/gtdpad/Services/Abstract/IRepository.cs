@@ -30,6 +30,18 @@ namespace gtdpad.Services
 
         Task DeleteImageBlock(Guid id);
 
+        Task<Image> GetImage(Guid id);
+
+        Task PersistImage(Image image, Guid imageBlockID);
+
+        Task DeleteImage(Guid id);
+
+        Task<ListItem> GetListItem(Guid id);
+
+        Task PersistListItem(ListItem listItem, Guid listID);
+
+        Task DeleteListItem(Guid id);
+
         Task<User> FindUserByEmail(string email);
     }
 }
