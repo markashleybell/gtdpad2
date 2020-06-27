@@ -86,7 +86,8 @@ DELETE FROM Sections WHERE ID = @ID;";
                 const string sql = @"
 SELECT
     i.ID,
-    i.FileExtension
+    i.FileExtension,
+    i.[Order]
 FROM
     Images i
 WHERE
@@ -104,7 +105,8 @@ WHERE
 SELECT
     s.ID,
     s.Owner,
-    s.Title
+    s.Title,
+    s.[Order]
 FROM
     Sections s
 WHERE
@@ -122,7 +124,8 @@ WHERE
 SELECT
     s.ID,
     s.Owner,
-    s.Title
+    s.Title,
+    s.[Order]
 FROM
     Sections s
 WHERE
@@ -139,7 +142,8 @@ WHERE
                 const string sql = @"
 SELECT
     li.ID,
-    li.Text
+    li.Text,
+    li.[Order]
 FROM
     ListItems li
 WHERE
@@ -154,7 +158,7 @@ WHERE
         public async Task<Page> GetPage(Guid id) =>
             await WithConnection(async conn => {
                 return await conn.QuerySingleOrDefaultAsync<Page>(
-                    sql: "SELECT ID, Owner, Title, Slug FROM Pages WHERE ID = @ID",
+                    sql: "SELECT ID, Owner, Title, Slug, [Order] FROM Pages WHERE ID = @ID",
                     param: new { ID = id }
                 );
             });
@@ -166,7 +170,8 @@ SELECT
     s.ID,
     s.Owner,
     s.Title,
-    tb.Text
+    tb.Text,
+    s.[Order]
 FROM
     Sections s
 INNER JOIN
@@ -184,12 +189,12 @@ WHERE
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO Images
-    (ID, ImageBlock, FileExtension)
+    (ID, ImageBlock, FileExtension, [Order])
 VALUES
-    (@ID, @ImageBlock, @FileExtension);";
+    (@ID, @ImageBlock, @FileExtension, @Order);";
 
                 const string updateSql = @"
-UPDATE Images SET FileExtension = @FileExtension WHERE ID = @ID;
+UPDATE Images SET FileExtension = @FileExtension, [Order] = @Order WHERE ID = @ID;
 ";
 
                 var existing = await GetImage(image.ID);
@@ -203,7 +208,8 @@ UPDATE Images SET FileExtension = @FileExtension WHERE ID = @ID;
                     param: new {
                         image.ID,
                         ImageBlock = imageBlockID,
-                        image.FileExtension
+                        image.FileExtension,
+                        image.Order
                     }
                 );
             });
@@ -212,12 +218,12 @@ UPDATE Images SET FileExtension = @FileExtension WHERE ID = @ID;
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO Sections
-    (ID, Owner, Page, Title, Type)
+    (ID, Owner, Page, Title, Type, [Order])
 VALUES
-    (@ID, @Owner, @Page, @Title, 2);";
+    (@ID, @Owner, @Page, @Title, 2, @Order);";
 
                 const string updateSql = @"
-UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
+UPDATE Sections SET Title = @Title, Page = @Page, [Order] = @Order WHERE ID = @ID;
 ";
 
                 var existing = await GetImageBlock(imageBlock.ID);
@@ -232,7 +238,8 @@ UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
                         imageBlock.ID,
                         imageBlock.Owner,
                         Page = pageID,
-                        imageBlock.Title
+                        imageBlock.Title,
+                        imageBlock.Order
                     }
                 );
             });
@@ -241,12 +248,12 @@ UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO Sections
-    (ID, Owner, Page, Title, Type)
+    (ID, Owner, Page, Title, Type, [Order])
 VALUES
-    (@ID, @Owner, @Page, @Title, 3);";
+    (@ID, @Owner, @Page, @Title, 3, @Order);";
 
                 const string updateSql = @"
-UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
+UPDATE Sections SET Title = @Title, Page = @Page, [Order] = @Order WHERE ID = @ID;
 ";
 
                 var existing = await GetList(list.ID);
@@ -261,7 +268,8 @@ UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
                         list.ID,
                         list.Owner,
                         Page = pageID,
-                        list.Title
+                        list.Title,
+                        list.Order
                     }
                 );
             });
@@ -270,12 +278,12 @@ UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO ListItems
-    (ID, List, Text)
+    (ID, List, Text, [Order])
 VALUES
-    (@ID, @List, @Text);";
+    (@ID, @List, @Text, @Order);";
 
                 const string updateSql = @"
-UPDATE ListItems SET Text = @Text WHERE ID = @ID;
+UPDATE ListItems SET Text = @Text, [Order] = @Order WHERE ID = @ID;
 ";
 
                 var existing = await GetListItem(listItem.ID);
@@ -289,7 +297,8 @@ UPDATE ListItems SET Text = @Text WHERE ID = @ID;
                     param: new {
                         listItem.ID,
                         List = listID,
-                        listItem.Text
+                        listItem.Text,
+                        listItem.Order
                     }
                 );
             });
@@ -299,8 +308,8 @@ UPDATE ListItems SET Text = @Text WHERE ID = @ID;
                 var existing = await GetPage(page.ID);
 
                 var sql = existing is null
-                    ? "INSERT INTO Pages (ID, Owner, Title, Slug) VALUES (@ID, @Owner, @Title, @Slug)"
-                    : "UPDATE Pages SET Title = @Title, Slug = @Slug WHERE ID = @ID";
+                    ? "INSERT INTO Pages (ID, Owner, Title, Slug, [Order]) VALUES (@ID, @Owner, @Title, @Slug, @Order)"
+                    : "UPDATE Pages SET Title = @Title, Slug = @Slug, [Order] = @Order WHERE ID = @ID";
 
                 await conn.ExecuteAsync(
                     sql: sql,
@@ -308,7 +317,8 @@ UPDATE ListItems SET Text = @Text WHERE ID = @ID;
                         page.ID,
                         page.Owner,
                         page.Title,
-                        page.Slug
+                        page.Slug,
+                        page.Order
                     }
                 );
             });
@@ -317,9 +327,9 @@ UPDATE ListItems SET Text = @Text WHERE ID = @ID;
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO Sections
-    (ID, Owner, Page, Title, Type)
+    (ID, Owner, Page, Title, Type, [Order])
 VALUES
-    (@ID, @Owner, @Page, @Title, 1);
+    (@ID, @Owner, @Page, @Title, 1, @Order);
 
 INSERT INTO TextBlocks
     (ID, Text)
@@ -327,7 +337,7 @@ VALUES
     (@ID, @Text);";
 
                 const string updateSql = @"
-UPDATE Sections SET Title = @Title, Page = @Page WHERE ID = @ID;
+UPDATE Sections SET Title = @Title, Page = @Page, [Order] = @Order WHERE ID = @ID;
 
 UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;
 ";
@@ -345,7 +355,8 @@ UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;
                         richTextBlock.Owner,
                         Page = pageID,
                         richTextBlock.Title,
-                        richTextBlock.Text
+                        richTextBlock.Text,
+                        richTextBlock.Order
                     }
                 );
             });

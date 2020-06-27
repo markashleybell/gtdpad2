@@ -6,6 +6,10 @@ namespace gtdpad.Services
 {
     public interface IRepository
     {
+        /* Queries */
+
+        /* Commands */
+
         Task<Page> GetPage(Guid id);
 
         Task PersistPage(Page page);

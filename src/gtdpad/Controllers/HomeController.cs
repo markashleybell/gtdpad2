@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace gtdpad.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRepository _repository;

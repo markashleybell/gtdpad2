@@ -25,7 +25,7 @@ async Task Main()
         }
     };
     
-    var repository = new SqlServerRepository(settings, user.ID);
+    var repository = new SqlServerRepository(settings);
     
     // (await repository.FindUserByEmail(user.Email)).Dump();
     
@@ -37,6 +37,7 @@ async Task Main()
     
     var page = new Page(
         id: newPageID,
+        owner: user.ID,
         title: "NEW PAGE",
         slug: "new-page"
     );

@@ -34,7 +34,8 @@ namespace test
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
                 title: "PAGE",
-                slug: "page"
+                slug: "page",
+                order: 10
             );
 
             await repository.PersistPage(newPage);
@@ -44,8 +45,9 @@ namespace test
             Assert.AreEqual(newPage.ID, page.ID);
             Assert.AreEqual(newPage.Title, page.Title);
             Assert.AreEqual(newPage.Slug, page.Slug);
+            Assert.AreEqual(newPage.Order, page.Order);
 
-            var updatedPage = page.With(title: "PAGE UPDATED", slug: "page-updated");
+            var updatedPage = page.With(title: "PAGE UPDATED", slug: "page-updated", order: 20);
 
             await repository.PersistPage(updatedPage);
 
@@ -54,6 +56,7 @@ namespace test
             Assert.AreEqual(page.ID, pageAfterUpdate.ID);
             Assert.AreEqual(updatedPage.Title, pageAfterUpdate.Title);
             Assert.AreEqual(updatedPage.Slug, pageAfterUpdate.Slug);
+            Assert.AreEqual(updatedPage.Order, pageAfterUpdate.Order);
 
             await repository.DeletePage(page.ID);
 
@@ -71,7 +74,8 @@ namespace test
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
                 title: "PAGE",
-                slug: "page"
+                slug: "page",
+                order: 10
             );
 
             await repository.PersistPage(page);
@@ -80,7 +84,8 @@ namespace test
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
                 title: "RICH TEXT BLOCK",
-                text: "<p>Rich Text Block Body.</p>"
+                text: "<p>Rich Text Block Body.</p>",
+                order: 10
             );
 
             await repository.PersistRichTextBlock(newRichTextBlock, page.ID);
@@ -90,10 +95,12 @@ namespace test
             Assert.AreEqual(newRichTextBlock.ID, richTextBlock.ID);
             Assert.AreEqual(newRichTextBlock.Title, richTextBlock.Title);
             Assert.AreEqual(newRichTextBlock.Text, richTextBlock.Text);
+            Assert.AreEqual(newRichTextBlock.Order, richTextBlock.Order);
 
             var updatedRichTextBlock = richTextBlock.With(
                 title: "RICH TEXT BLOCK UPDATED",
-                text: "<p>Rich Text Block Body Updated.</p>"
+                text: "<p>Rich Text Block Body Updated.</p>",
+                order: 20
             );
 
             await repository.PersistRichTextBlock(updatedRichTextBlock, page.ID);
@@ -103,6 +110,7 @@ namespace test
             Assert.AreEqual(richTextBlock.ID, richTextBlockAfterUpdate.ID);
             Assert.AreEqual(updatedRichTextBlock.Title, richTextBlockAfterUpdate.Title);
             Assert.AreEqual(updatedRichTextBlock.Text, richTextBlockAfterUpdate.Text);
+            Assert.AreEqual(updatedRichTextBlock.Order, richTextBlockAfterUpdate.Order);
 
             await repository.DeleteRichTextBlock(richTextBlock.ID);
 
@@ -120,7 +128,8 @@ namespace test
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
                 title: "PAGE",
-                slug: "page"
+                slug: "page",
+                order: 10
             );
 
             await repository.PersistPage(page);
@@ -128,7 +137,8 @@ namespace test
             var newImageBlock = new ImageBlock(
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
-                title: "IMAGE BLOCK"
+                title: "IMAGE BLOCK",
+                order: 10
             );
 
             await repository.PersistImageBlock(newImageBlock, page.ID);
@@ -137,9 +147,11 @@ namespace test
 
             Assert.AreEqual(newImageBlock.ID, imageBlock.ID);
             Assert.AreEqual(newImageBlock.Title, imageBlock.Title);
+            Assert.AreEqual(newImageBlock.Order, imageBlock.Order);
 
             var updatedImageBlock = imageBlock.With(
-                title: "IMAGE BLOCK UPDATED"
+                title: "IMAGE BLOCK UPDATED",
+                order: 20
             );
 
             await repository.PersistImageBlock(updatedImageBlock, page.ID);
@@ -148,6 +160,7 @@ namespace test
 
             Assert.AreEqual(imageBlock.ID, imageBlockAfterUpdate.ID);
             Assert.AreEqual(updatedImageBlock.Title, imageBlockAfterUpdate.Title);
+            Assert.AreEqual(updatedImageBlock.Order, imageBlockAfterUpdate.Order);
 
             await repository.DeleteImageBlock(imageBlock.ID);
 
@@ -165,7 +178,8 @@ namespace test
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
                 title: "PAGE",
-                slug: "page"
+                slug: "page",
+                order: 10
             );
 
             await repository.PersistPage(page);
@@ -173,7 +187,8 @@ namespace test
             var newList = new g.List(
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
-                title: "LIST"
+                title: "LIST",
+                order: 10
             );
 
             await repository.PersistList(newList, page.ID);
@@ -182,9 +197,11 @@ namespace test
 
             Assert.AreEqual(newList.ID, list.ID);
             Assert.AreEqual(newList.Title, list.Title);
+            Assert.AreEqual(newList.Order, list.Order);
 
             var updatedList = list.With(
-                title: "LIST UPDATED"
+                title: "LIST UPDATED",
+                order: 20
             );
 
             await repository.PersistList(updatedList, page.ID);
@@ -193,6 +210,7 @@ namespace test
 
             Assert.AreEqual(list.ID, listAfterUpdate.ID);
             Assert.AreEqual(updatedList.Title, listAfterUpdate.Title);
+            Assert.AreEqual(updatedList.Order, listAfterUpdate.Order);
 
             await repository.DeleteList(list.ID);
 
@@ -210,7 +228,8 @@ namespace test
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
                 title: "PAGE",
-                slug: "page"
+                slug: "page",
+                order: 10
             );
 
             await repository.PersistPage(page);
@@ -218,14 +237,16 @@ namespace test
             var imageBlock = new ImageBlock(
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
-                title: "IMAGE BLOCK"
+                title: "IMAGE BLOCK",
+                order: 10
             );
 
             await repository.PersistImageBlock(imageBlock, page.ID);
 
             var newImage = new Image(
                 id: Guid.NewGuid(),
-                fileExtension: ".jpg"
+                fileExtension: ".jpg",
+                order: 10
             );
 
             await repository.PersistImage(newImage, imageBlock.ID);
@@ -234,9 +255,11 @@ namespace test
 
             Assert.AreEqual(newImage.ID, image.ID);
             Assert.AreEqual(newImage.FileExtension, image.FileExtension);
+            Assert.AreEqual(newImage.Order, image.Order);
 
             var updatedImage = image.With(
-                fileExtension: ".png"
+                fileExtension: ".png",
+                order: 20
             );
 
             await repository.PersistImage(updatedImage, imageBlock.ID);
@@ -245,6 +268,7 @@ namespace test
 
             Assert.AreEqual(imageAfterUpdate.ID, newImage.ID);
             Assert.AreEqual(imageAfterUpdate.FileExtension, updatedImage.FileExtension);
+            Assert.AreEqual(imageAfterUpdate.Order, updatedImage.Order);
 
             await repository.DeleteImage(image.ID);
 
@@ -262,7 +286,8 @@ namespace test
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
                 title: "PAGE",
-                slug: "page"
+                slug: "page",
+                order: 10
             );
 
             await repository.PersistPage(page);
@@ -270,14 +295,16 @@ namespace test
             var list = new g.List(
                 id: Guid.NewGuid(),
                 owner: _testUser.ID,
-                title: "LIST"
+                title: "LIST",
+                order: 10
             );
 
             await repository.PersistList(list, page.ID);
 
             var newListItem = new ListItem(
                 id: Guid.NewGuid(),
-                text: "LIST ITEM"
+                text: "LIST ITEM",
+                order: 10
             );
 
             await repository.PersistListItem(newListItem, list.ID);
@@ -286,9 +313,11 @@ namespace test
 
             Assert.AreEqual(newListItem.ID, listItem.ID);
             Assert.AreEqual(newListItem.Text, listItem.Text);
+            Assert.AreEqual(newListItem.Order, listItem.Order);
 
             var updatedListItem = listItem.With(
-                text: "LIST ITEM UPDATED"
+                text: "LIST ITEM UPDATED",
+                order: 20
             );
 
             await repository.PersistListItem(updatedListItem, list.ID);
@@ -297,6 +326,7 @@ namespace test
 
             Assert.AreEqual(listItemAfterUpdate.ID, newListItem.ID);
             Assert.AreEqual(listItemAfterUpdate.Text, updatedListItem.Text);
+            Assert.AreEqual(listItemAfterUpdate.Order, updatedListItem.Order);
 
             await repository.DeleteListItem(listItem.ID);
 

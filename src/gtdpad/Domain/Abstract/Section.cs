@@ -8,7 +8,8 @@ namespace gtdpad.Domain
         protected Section(
             Guid id,
             Guid owner,
-            string title)
+            string title,
+            int order)
         {
             Guard.AgainstEmpty(id, nameof(id));
             Guard.AgainstEmpty(owner, nameof(owner));
@@ -17,6 +18,7 @@ namespace gtdpad.Domain
             ID = id;
             Owner = owner;
             Title = title;
+            Order = order;
         }
 
         public Guid ID { get; }
@@ -24,5 +26,7 @@ namespace gtdpad.Domain
         public Guid Owner { get; }
 
         public string Title { get; }
+
+        public int Order { get; set; }
     }
 }

@@ -8,16 +8,18 @@ namespace gtdpad.Domain
             Guid id,
             Guid owner,
             string title,
-            string text)
+            string text,
+            int order)
         : base(
               id,
               owner,
-              title) =>
+              title,
+              order) =>
             Text = text;
 
         public string Text { get; }
 
-        public RichTextBlock With(string title = default, string text = default) =>
-            new RichTextBlock(ID, Owner, title ?? Title, text ?? Text);
+        public RichTextBlock With(string title = default, string text = default, int? order = default) =>
+            new RichTextBlock(ID, Owner, title ?? Title, text ?? Text, order ?? Order);
     }
 }

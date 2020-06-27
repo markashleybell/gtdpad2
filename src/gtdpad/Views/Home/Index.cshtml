@@ -3,3 +3,11 @@
 <p>Logged in: @(Model.User) [<a asp-controller="Users" asp-action="Logout">Log Out</a>]</p>
 
 <p>@(Model.PageTitle)</p>
+
+<form asp-controller="Pages" asp-action="Delete">
+    <p><input type="text" name="ID" placeholder="ID" value="BF359BCB-B0A8-4A7A-ADFC-926BFD05F492" /></p>
+    <p><input type="text" name="Title" placeholder="Title" /></p>
+    <p><input type="text" name="Slug" placeholder="Slug" /></p>
+    <p><input type="text" name="Order" placeholder="Order" /></p>
+    <p><input type="submit" value="Save" /></p>
+</form>

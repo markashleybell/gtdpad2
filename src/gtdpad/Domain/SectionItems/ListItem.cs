@@ -6,17 +6,21 @@ namespace gtdpad.Domain
     {
         public ListItem(
             Guid id,
-            string text)
+            string text,
+            int order)
         {
             ID = id;
             Text = text;
+            Order = order;
         }
 
         public Guid ID { get; set; }
 
         public string Text { get; }
 
-        public ListItem With(string text = default) =>
-            new ListItem(ID, text ?? Text);
+        public int Order { get; set; }
+
+        public ListItem With(string text = default, int? order = default) =>
+            new ListItem(ID, text ?? Text, order ?? Order);
     }
 }

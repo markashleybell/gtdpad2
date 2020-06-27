@@ -6,17 +6,21 @@ namespace gtdpad.Domain
     {
         public Image(
             Guid id,
-            string fileExtension)
+            string fileExtension,
+            int order)
         {
             ID = id;
             FileExtension = fileExtension;
+            Order = order;
         }
 
         public Guid ID { get; set; }
 
         public string FileExtension { get; }
 
-        public Image With(string fileExtension = default) =>
-            new Image(ID, fileExtension ?? FileExtension);
+        public int Order { get; set; }
+
+        public Image With(string fileExtension = default, int? order = default) =>
+            new Image(ID, fileExtension ?? FileExtension, order ?? Order);
     }
 }

@@ -11,12 +11,14 @@ namespace gtdpad.Domain
             Guid id,
             Guid owner,
             string title,
-            string slug)
+            string slug,
+            int order)
             : this(
                   id,
                   owner,
                   title,
                   slug,
+                  order,
                   default)
         {
         }
@@ -26,6 +28,7 @@ namespace gtdpad.Domain
             Guid owner,
             string title,
             string slug,
+            int order,
             IEnumerable<Section> sections)
         {
             Guard.AgainstEmpty(id, nameof(id));
@@ -37,6 +40,7 @@ namespace gtdpad.Domain
             Owner = owner;
             Title = title;
             Slug = slug;
+            Order = order;
             Sections = sections ?? Enumerable.Empty<Section>();
         }
 
@@ -48,9 +52,11 @@ namespace gtdpad.Domain
 
         public string Slug { get; }
 
+        public int Order { get; set; }
+
         public IEnumerable<Section> Sections { get; set; }
 
-        public Page With(string title = default, string slug = default) =>
-            new Page(ID, Owner, title ?? Title, slug ?? Slug);
+        public Page With(string title = default, string slug = default, int? order = default) =>
+            new Page(ID, Owner, title ?? Title, slug ?? Slug, order ?? Order);
     }
 }

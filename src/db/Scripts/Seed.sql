@@ -28,20 +28,22 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT * FROM Users)
+IF NOT EXISTS (SELECT * FROM Pages)
 BEGIN
     INSERT INTO
         Pages(
             [ID],
             [Owner],
             [Title],
-            [Slug]
+            [Slug],
+            [Order]
         )
     VALUES (
         '796ac644-ff8e-47da-bbdc-ca8f822ce5f6',
         'df77778f-2ef3-49af-a1a8-b1f064891ef5',
         'TEST PAGE',
-        'test-page'
+        'test-page',
+        0
     )
 END
 GO

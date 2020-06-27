@@ -3,5 +3,6 @@
 	[ID] UNIQUEIDENTIFIER NOT NULL CONSTRAINT [PK_Images] PRIMARY KEY,
     [ImageBlock] UNIQUEIDENTIFIER NOT NULL,
     [FileExtension] NVARCHAR(16) NOT NULL,
+    [Order] INT NOT NULL,
     CONSTRAINT [FK_Images_Sections] FOREIGN KEY ([ImageBlock]) REFERENCES [Sections] ([ID])
 )

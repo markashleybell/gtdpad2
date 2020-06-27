@@ -9,11 +9,13 @@ namespace gtdpad.Domain
         public List(
             Guid id,
             Guid owner,
-            string title)
+            string title,
+            int order)
             : this(
                 id,
                 owner,
                 title,
+                order,
                 default)
         {
         }
@@ -22,16 +24,18 @@ namespace gtdpad.Domain
             Guid id,
             Guid owner,
             string title,
+            int order,
             IEnumerable<ListItem> items)
             : base(
                 id,
                 owner,
-                title) =>
+                title,
+                order) =>
             Items = items ?? Enumerable.Empty<ListItem>();
 
         public IEnumerable<ListItem> Items { get; }
 
-        public List With(string title = default) =>
-            new List(ID, Owner, title ?? Title);
+        public List With(string title = default, int? order = default) =>
+            new List(ID, Owner, title ?? Title, order ?? Order);
     }
 }
