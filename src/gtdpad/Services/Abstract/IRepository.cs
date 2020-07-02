@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using gtdpad.Domain;
 
@@ -7,6 +8,8 @@ namespace gtdpad.Services
     public interface IRepository
     {
         /* Queries */
+
+        Task<IEnumerable<Page>> GetAllPages(Guid ownerID);
 
         /* Commands */
 

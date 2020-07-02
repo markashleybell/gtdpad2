@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using gtdpad.Models;
 using gtdpad.Services;
@@ -22,11 +23,15 @@ namespace gtdpad.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var page = await _repository.GetPage(new Guid("796ac644-ff8e-47da-bbdc-ca8f822ce5f6"));
+            var pages = await _repository.GetAllPages(UserID);
+
+            var index = pages.First();
 
             var model = new IndexViewModel {
                 User = User.Identity.Name,
-                PageTitle = page.Title
+                PageID = index.ID,
+                PageTitle = index.Title,
+                Pages = pages
             };
 
             return View(model);

@@ -66,7 +66,7 @@ namespace gtdpad
                 return new SqlServerRepository(optionsMonitor);
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
         }
 
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

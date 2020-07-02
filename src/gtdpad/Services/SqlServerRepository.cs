@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using gtdpad.Domain;
@@ -78,6 +79,14 @@ DELETE FROM Sections WHERE ID = @ID;";
                 return await conn.QuerySingleOrDefaultAsync<User>(
                     sql: "SELECT * FROM Users WHERE Email = @Email",
                     param: new { Email = email }
+                );
+            });
+
+        public async Task<IEnumerable<Page>> GetAllPages(Guid ownerID) =>
+            await WithConnection(async conn => {
+                return await conn.QueryAsync<Page>(
+                    sql: "SELECT ID, Owner, Title, Slug, [Order] FROM Pages WHERE Owner = @Owner",
+                    param: new { Owner = ownerID }
                 );
             });
 

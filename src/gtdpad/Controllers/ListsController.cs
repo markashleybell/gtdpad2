@@ -11,6 +11,8 @@ using System.Security.Claims;
 namespace gtdpad.Controllers
 {
     [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
     public class ListsController : ControllerBase
     {
         private readonly ILogger<ListsController> _logger;
@@ -22,7 +24,8 @@ namespace gtdpad.Controllers
             _repository = repository;
         }
 
-        public async Task<IActionResult> Create(CreateListViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateListViewModel model)
         {
             var section = new List(
                 id: Guid.NewGuid(),
@@ -33,10 +36,11 @@ namespace gtdpad.Controllers
 
             await _repository.PersistList(section, model.PageID);
 
-            return Content("OK: " + section.ID);
+            return Json(section);
         }
 
-        public async Task<IActionResult> Update(UpdateListViewModel model)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(UpdateListViewModel model)
         {
             var section = await _repository.GetList(model.ID);
 
@@ -52,14 +56,15 @@ namespace gtdpad.Controllers
 
             await _repository.PersistList(updatedSection, model.PageID);
 
-            return Content("OK: " + updatedSection.ID);
+            return Json(updatedSection);
         }
 
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(DeleteListViewModel model)
         {
             await _repository.DeleteList(model.ID);
 
-            return Content("OK: " + model.ID);
+            return Json(model);
         }
     }
 }
