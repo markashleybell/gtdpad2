@@ -3,27 +3,41 @@ using System.Threading.Tasks;
 using gtdpad.Domain;
 using gtdpad.Models;
 using gtdpad.Services;
-using Microsoft.AspNetCore.Authorization;
+using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 
 namespace gtdpad.Controllers
 {
-    [Authorize]
-    public class PagesController : ControllerBase
+    public class PagesController : ApiControllerBase<PagesController, Page>
     {
-        private readonly ILogger<PagesController> _logger;
-        private readonly IRepository _repository;
+        public PagesController(
+            ILogger<PagesController> logger,
+            IRepository repository)
+            : base(
+                logger,
+                repository)
+        { }
 
-        public PagesController(ILogger<PagesController> logger, IRepository repository)
+        [HttpGet]
+        public async Task<IActionResult> Get() =>
+            Ok(await Repository.GetPages(UserID));
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
         {
-            _logger = logger;
-            _repository = repository;
+            var page = await Repository.GetPage(id);
+
+            return page is null
+                ? (IActionResult)NotFound()
+                : Ok(page);
         }
 
-        public async Task<IActionResult> Create(CreatePageViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Post(CreatePageViewModel model)
         {
+            Guard.AgainstNull(model, nameof(model));
+
             var page = new Page(
                 id: Guid.NewGuid(),
                 owner: UserID,
@@ -32,14 +46,17 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistPage(page);
+            await Repository.PersistPage(page);
 
-            return Content("OK: " + page.ID);
+            return CreatedAtAction(nameof(Get), new { id = page.ID }, page);
         }
 
-        public async Task<IActionResult> Update(UpdatePageViewModel model)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, UpdatePageViewModel model)
         {
-            var page = await _repository.GetPage(model.ID);
+            Guard.AgainstNull(model, nameof(model));
+
+            var page = await Repository.GetPage(id);
 
             if (page is null)
             {
@@ -52,16 +69,24 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistPage(updatedPage);
+            await Repository.PersistPage(updatedPage);
 
-            return Content("OK: " + updatedPage.ID);
+            return NoContent();
         }
 
-        public async Task<IActionResult> Delete(DeletePageViewModel model)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            await _repository.DeletePage(model.ID);
+            var page = await Repository.GetPage(id);
 
-            return Content("OK: " + model.ID);
+            if (page is null)
+            {
+                return NotFound();
+            }
+
+            await Repository.DeletePage(id);
+
+            return NoContent();
         }
     }
 }

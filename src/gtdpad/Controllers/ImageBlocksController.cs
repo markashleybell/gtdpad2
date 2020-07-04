@@ -7,23 +7,39 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using gtdpad.Support;
 
 namespace gtdpad.Controllers
 {
-    [Authorize]
-    public class ImageBlocksController : ControllerBase
+    public class ImageBlocksController : ApiControllerBase<ImageBlocksController, ImageBlock>
     {
-        private readonly ILogger<ImageBlocksController> _logger;
-        private readonly IRepository _repository;
+        public ImageBlocksController(
+            ILogger<ImageBlocksController> logger,
+            IRepository repository)
+            : base(
+                logger,
+                repository)
+        { }
 
-        public ImageBlocksController(ILogger<ImageBlocksController> logger, IRepository repository)
+        [HttpGet]
+        public async Task<IActionResult> Get() =>
+            Ok(await Repository.GetImageBlocks(UserID));
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
         {
-            _logger = logger;
-            _repository = repository;
+            var section = await Repository.GetImageBlock(id);
+
+            return section is null
+                ? (IActionResult)NotFound()
+                : Ok(section);
         }
 
-        public async Task<IActionResult> Create(CreateImageBlockViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateImageBlockViewModel model)
         {
+            Guard.AgainstNull(model, nameof(model));
+
             var section = new ImageBlock(
                 id: Guid.NewGuid(),
                 owner: UserID,
@@ -31,14 +47,17 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistImageBlock(section, model.PageID);
+            await Repository.PersistImageBlock(section, model.PageID);
 
-            return Content("OK: " + section.ID);
+            return CreatedAtAction(nameof(Get), section);
         }
 
-        public async Task<IActionResult> Update(UpdateImageBlockViewModel model)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, UpdateImageBlockViewModel model)
         {
-            var section = await _repository.GetImageBlock(model.ID);
+            Guard.AgainstNull(model, nameof(model));
+
+            var section = await Repository.GetImageBlock(id);
 
             if (section is null)
             {
@@ -50,16 +69,24 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistImageBlock(updatedSection, model.PageID);
+            await Repository.PersistImageBlock(updatedSection, model.PageID);
 
-            return Content("OK: " + updatedSection.ID);
+            return Ok(updatedSection);
         }
 
-        public async Task<IActionResult> Delete(DeleteImageBlockViewModel model)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            await _repository.DeleteImageBlock(model.ID);
+            var list = await Repository.GetImageBlock(id);
 
-            return Content("OK: " + model.ID);
+            if (list is null)
+            {
+                return NotFound();
+            }
+
+            await Repository.DeleteImageBlock(id);
+
+            return NoContent();
         }
     }
 }

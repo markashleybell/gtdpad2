@@ -23,7 +23,7 @@ namespace gtdpad.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var pages = await _repository.GetAllPages(UserID);
+            var pages = await _repository.GetPages(UserID);
 
             var index = pages.First();
 

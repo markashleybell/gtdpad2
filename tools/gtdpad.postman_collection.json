@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "ca2cf5bc-fcbc-4f6b-a496-baabd0558c4d",
+		"name": "gtdpad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pages",
+			"item": [
+				{
+					"name": "List Pages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/pages",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Page",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"AAA TEST PAGE\",\r\n    \"slug\": \"aaa-test-page\",\r\n    \"order\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/pages",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"pages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/pages/af44a0b0-be7c-455e-9dc7-a31acda6d897",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"pages",
+								"af44a0b0-be7c-455e-9dc7-a31acda6d897"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Page",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"AAA TEST PAGE UPDATED\",\r\n    \"slug\": \"aaa-test-page-updated\",\r\n    \"order\": 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/pages/af44a0b0-be7c-455e-9dc7-a31acda6d897",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"pages",
+								"af44a0b0-be7c-455e-9dc7-a31acda6d897"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Page",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/pages/6ede1ccd-7775-4f1d-9aac-8b024cfe1f89",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"pages",
+								"6ede1ccd-7775-4f1d-9aac-8b024cfe1f89"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Lists",
+			"item": [
+				{
+					"name": "List Lists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/lists",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create List",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST LIST\",\r\n    \"order\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/lists",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/lists/1f02c1a8-7962-4648-87af-d647c961aef0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"lists",
+								"1f02c1a8-7962-4648-87af-d647c961aef0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update List",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST PAGE UPDATED\",\r\n    \"order\": 300\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/lists/1f02c1a8-7962-4648-87af-d647c961aef0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"lists",
+								"1f02c1a8-7962-4648-87af-d647c961aef0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete List",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/lists/1f02c1a8-7962-4648-87af-d647c961aef0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"lists",
+								"1f02c1a8-7962-4648-87af-d647c961aef0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ImageBlocks",
+			"item": [
+				{
+					"name": "List ImageBlocks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/imageblocks",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"imageblocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create ImageBlock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST IMAGEBLOCK\",\r\n    \"order\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/imageblocks",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"imageblocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read ImageBlock",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/imageblocks/71055054-183c-4d26-96dd-b8de834d266f",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"imageblocks",
+								"71055054-183c-4d26-96dd-b8de834d266f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update ImageBlock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST IMAGEBLOCK UPDATED\",\r\n    \"order\": 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/imageblocks/71055054-183c-4d26-96dd-b8de834d266f",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"imageblocks",
+								"71055054-183c-4d26-96dd-b8de834d266f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete ImageBlock",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/imageblocks/71055054-183c-4d26-96dd-b8de834d266f",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"imageblocks",
+								"71055054-183c-4d26-96dd-b8de834d266f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "RichTextBlocks",
+			"item": [
+				{
+					"name": "List RichTextBlocks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/richtextblocks",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"richtextblocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create RichTextBlock",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST BLOCK\",\r\n    \"text\": \"TEST TEXT\",\r\n    \"order\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/richtextblocks",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"richtextblocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read RichTextBlock",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/richtextblocks/7402eca1-9fe7-4742-95af-8709357319c2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"richtextblocks",
+								"7402eca1-9fe7-4742-95af-8709357319c2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update RichTextBlock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST BLOCK UPDATED\",\r\n    \"text\": \"TEST TEXT UPDATED\",\r\n    \"order\": 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5001/api/richtextblocks/7402eca1-9fe7-4742-95af-8709357319c2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"richtextblocks",
+								"7402eca1-9fe7-4742-95af-8709357319c2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete RichTextBlock",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:5001/api/richtextblocks/83159080-ceec-4266-b002-262aced3209a",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5001",
+							"path": [
+								"api",
+								"richtextblocks",
+								"83159080-ceec-4266-b002-262aced3209a"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

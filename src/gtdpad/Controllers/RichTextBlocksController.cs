@@ -7,23 +7,39 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using gtdpad.Support;
 
 namespace gtdpad.Controllers
 {
-    [Authorize]
-    public class RichTextBlocksController : ControllerBase
+    public class RichTextBlocksController : ApiControllerBase<RichTextBlocksController, RichTextBlock>
     {
-        private readonly ILogger<RichTextBlocksController> _logger;
-        private readonly IRepository _repository;
+        public RichTextBlocksController(
+            ILogger<RichTextBlocksController> logger,
+            IRepository repository)
+            : base(
+                logger,
+                repository)
+        { }
 
-        public RichTextBlocksController(ILogger<RichTextBlocksController> logger, IRepository repository)
+        [HttpGet]
+        public async Task<IActionResult> Get() =>
+            Ok(await Repository.GetRichTextBlocks(UserID));
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
         {
-            _logger = logger;
-            _repository = repository;
+            var section = await Repository.GetRichTextBlock(id);
+
+            return section is null
+                ? (IActionResult)NotFound()
+                : Ok(section);
         }
 
-        public async Task<IActionResult> Create(CreateRichTextBlockViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Post(CreateRichTextBlockViewModel model)
         {
+            Guard.AgainstNull(model, nameof(model));
+
             var section = new RichTextBlock(
                 id: Guid.NewGuid(),
                 owner: UserID,
@@ -32,14 +48,17 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistRichTextBlock(section, model.PageID);
+            await Repository.PersistRichTextBlock(section, model.PageID);
 
-            return Content("OK: " + section.ID);
+            return CreatedAtAction(nameof(Get), section);
         }
 
-        public async Task<IActionResult> Update(UpdateRichTextBlockViewModel model)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, UpdateRichTextBlockViewModel model)
         {
-            var section = await _repository.GetRichTextBlock(model.ID);
+            Guard.AgainstNull(model, nameof(model));
+
+            var section = await Repository.GetRichTextBlock(id);
 
             if (section is null)
             {
@@ -52,16 +71,24 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistRichTextBlock(updatedSection, model.PageID);
+            await Repository.PersistRichTextBlock(updatedSection, model.PageID);
 
-            return Content("OK: " + updatedSection.ID);
+            return Ok(updatedSection);
         }
 
-        public async Task<IActionResult> Delete(DeleteRichTextBlockViewModel model)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
-            await _repository.DeleteRichTextBlock(model.ID);
+            var list = await Repository.GetRichTextBlock(id);
 
-            return Content("OK: " + model.ID);
+            if (list is null)
+            {
+                return NotFound();
+            }
+
+            await Repository.DeleteRichTextBlock(id);
+
+            return NoContent();
         }
     }
 }

@@ -7,26 +7,39 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using gtdpad.Support;
 
 namespace gtdpad.Controllers
 {
-    [Authorize]
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ListsController : ControllerBase
+    public class ListsController : ApiControllerBase<ListsController, List>
     {
-        private readonly ILogger<ListsController> _logger;
-        private readonly IRepository _repository;
+        public ListsController(
+            ILogger<ListsController> logger,
+            IRepository repository)
+            : base(
+                logger,
+                repository)
+        { }
 
-        public ListsController(ILogger<ListsController> logger, IRepository repository)
+        [HttpGet]
+        public async Task<IActionResult> Get() =>
+            Ok(await Repository.GetLists(UserID));
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
         {
-            _logger = logger;
-            _repository = repository;
+            var section = await Repository.GetList(id);
+
+            return section is null
+                ? (IActionResult)NotFound()
+                : Ok(section);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(CreateListViewModel model)
         {
+            Guard.AgainstNull(model, nameof(model));
+
             var section = new List(
                 id: Guid.NewGuid(),
                 owner: UserID,
@@ -34,15 +47,17 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistList(section, model.PageID);
+            await Repository.PersistList(section, model.PageID);
 
-            return Json(section);
+            return CreatedAtAction(nameof(Get), section);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(UpdateListViewModel model)
+        public async Task<IActionResult> Put(Guid id, UpdateListViewModel model)
         {
-            var section = await _repository.GetList(model.ID);
+            Guard.AgainstNull(model, nameof(model));
+
+            var section = await Repository.GetList(id);
 
             if (section is null)
             {
@@ -54,17 +69,24 @@ namespace gtdpad.Controllers
                 order: model.Order
             );
 
-            await _repository.PersistList(updatedSection, model.PageID);
+            await Repository.PersistList(updatedSection, model.PageID);
 
-            return Json(updatedSection);
+            return Ok(updatedSection);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(DeleteListViewModel model)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            await _repository.DeleteList(model.ID);
+            var list = await Repository.GetList(id);
 
-            return Json(model);
+            if (list is null)
+            {
+                return NotFound();
+            }
+
+            await Repository.DeleteList(id);
+
+            return NoContent();
         }
     }
 }

@@ -82,7 +82,7 @@ DELETE FROM Sections WHERE ID = @ID;";
                 );
             });
 
-        public async Task<IEnumerable<Page>> GetAllPages(Guid ownerID) =>
+        public async Task<IEnumerable<Page>> GetPages(Guid ownerID) =>
             await WithConnection(async conn => {
                 return await conn.QueryAsync<Page>(
                     sql: "SELECT ID, Owner, Title, Slug, [Order] FROM Pages WHERE Owner = @Owner",
@@ -367,6 +367,46 @@ UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;
                         richTextBlock.Text,
                         richTextBlock.Order
                     }
+                );
+            });
+
+        public async Task<IEnumerable<List>> GetLists(Guid ownerID) =>
+            await WithConnection(async conn => {
+                return await conn.QueryAsync<List>(
+                    sql: "SELECT ID, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 3",
+                    param: new { Owner = ownerID }
+                );
+            });
+
+        public async Task<IEnumerable<RichTextBlock>> GetRichTextBlocks(Guid ownerID) =>
+            await WithConnection(async conn => {
+                const string sql = @"
+SELECT
+    s.ID,
+    s.Owner,
+    s.Title,
+    tb.Text,
+    s.[Order]
+FROM
+    Sections s
+INNER JOIN
+    TextBlocks tb ON tb.ID = s.ID
+WHERE
+    Owner = @Owner
+AND
+    Type = 1";
+
+                return await conn.QueryAsync<RichTextBlock>(
+                    sql: sql,
+                    param: new { Owner = ownerID }
+                );
+            });
+
+        public async Task<IEnumerable<ImageBlock>> GetImageBlocks(Guid ownerID) =>
+            await WithConnection(async conn => {
+                return await conn.QueryAsync<ImageBlock>(
+                    sql: "SELECT ID, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 2",
+                    param: new { Owner = ownerID }
                 );
             });
 

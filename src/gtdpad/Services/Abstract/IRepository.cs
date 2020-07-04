@@ -7,11 +7,7 @@ namespace gtdpad.Services
 {
     public interface IRepository
     {
-        /* Queries */
-
-        Task<IEnumerable<Page>> GetAllPages(Guid ownerID);
-
-        /* Commands */
+        Task<IEnumerable<Page>> GetPages(Guid ownerID);
 
         Task<Page> GetPage(Guid id);
 
@@ -19,17 +15,23 @@ namespace gtdpad.Services
 
         Task DeletePage(Guid id);
 
+        Task<IEnumerable<List>> GetLists(Guid ownerID);
+
         Task<List> GetList(Guid id);
 
         Task PersistList(List list, Guid pageID);
 
         Task DeleteList(Guid id);
 
+        Task<IEnumerable<RichTextBlock>> GetRichTextBlocks(Guid ownerID);
+
         Task<RichTextBlock> GetRichTextBlock(Guid id);
 
         Task PersistRichTextBlock(RichTextBlock richTextBlock, Guid pageID);
 
         Task DeleteRichTextBlock(Guid id);
+
+        Task<IEnumerable<ImageBlock>> GetImageBlocks(Guid ownerID);
 
         Task<ImageBlock> GetImageBlock(Guid id);
 
