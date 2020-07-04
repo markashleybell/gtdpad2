@@ -1,13 +1,12 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using gtdpad.Domain;
-using gtdpad.Models;
+using gtdpad.Dto;
 using gtdpad.Services;
-using Microsoft.AspNetCore.Authorization;
+using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using gtdpad.Support;
 
 namespace gtdpad.Controllers
 {
@@ -22,8 +21,12 @@ namespace gtdpad.Controllers
         { }
 
         [HttpGet]
-        public async Task<IActionResult> Get() =>
-            Ok(await Repository.GetImageBlocks(UserID));
+        public async Task<IActionResult> Get()
+        {
+            var imageBlocks = await Repository.GetImageBlocks(UserID);
+
+            return Ok(imageBlocks.Select(ImageBlockDto.FromImageBlock));
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -32,30 +35,31 @@ namespace gtdpad.Controllers
 
             return section is null
                 ? (IActionResult)NotFound()
-                : Ok(section);
+                : Ok(ImageBlockDto.FromImageBlock(section));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateImageBlockViewModel model)
+        public async Task<IActionResult> Post(ImageBlockDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
 
             var section = new ImageBlock(
                 id: Guid.NewGuid(),
+                page: dto.Page,
                 owner: UserID,
-                title: model.Title,
-                order: model.Order
+                title: dto.Title,
+                order: dto.Order
             );
 
-            await Repository.PersistImageBlock(section, model.PageID);
+            await Repository.PersistImageBlock(section);
 
-            return CreatedAtAction(nameof(Get), section);
+            return CreatedAtAction(nameof(Get), dto.WithID(section.ID));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, UpdateImageBlockViewModel model)
+        public async Task<IActionResult> Put(Guid id, ImageBlockDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
 
             var section = await Repository.GetImageBlock(id);
 
@@ -65,13 +69,13 @@ namespace gtdpad.Controllers
             }
 
             var updatedSection = section.With(
-                title: model.Title,
-                order: model.Order
+                title: dto.Title,
+                order: dto.Order
             );
 
-            await Repository.PersistImageBlock(updatedSection, model.PageID);
+            await Repository.PersistImageBlock(updatedSection);
 
-            return Ok(updatedSection);
+            return Ok(dto);
         }
 
         [HttpDelete("{id}")]

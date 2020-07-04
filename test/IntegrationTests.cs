@@ -82,13 +82,14 @@ namespace test
 
             var newRichTextBlock = new RichTextBlock(
                 id: Guid.NewGuid(),
+                page: page.ID,
                 owner: _testUser.ID,
                 title: "RICH TEXT BLOCK",
                 text: "<p>Rich Text Block Body.</p>",
                 order: 10
             );
 
-            await repository.PersistRichTextBlock(newRichTextBlock, page.ID);
+            await repository.PersistRichTextBlock(newRichTextBlock);
 
             var richTextBlock = await repository.GetRichTextBlock(newRichTextBlock.ID);
 
@@ -103,7 +104,7 @@ namespace test
                 order: 20
             );
 
-            await repository.PersistRichTextBlock(updatedRichTextBlock, page.ID);
+            await repository.PersistRichTextBlock(updatedRichTextBlock);
 
             var richTextBlockAfterUpdate = await repository.GetRichTextBlock(updatedRichTextBlock.ID);
 
@@ -136,12 +137,13 @@ namespace test
 
             var newImageBlock = new ImageBlock(
                 id: Guid.NewGuid(),
+                page: page.ID,
                 owner: _testUser.ID,
                 title: "IMAGE BLOCK",
                 order: 10
             );
 
-            await repository.PersistImageBlock(newImageBlock, page.ID);
+            await repository.PersistImageBlock(newImageBlock);
 
             var imageBlock = await repository.GetImageBlock(newImageBlock.ID);
 
@@ -154,7 +156,7 @@ namespace test
                 order: 20
             );
 
-            await repository.PersistImageBlock(updatedImageBlock, page.ID);
+            await repository.PersistImageBlock(updatedImageBlock);
 
             var imageBlockAfterUpdate = await repository.GetImageBlock(updatedImageBlock.ID);
 
@@ -186,12 +188,13 @@ namespace test
 
             var newList = new g.List(
                 id: Guid.NewGuid(),
+                page: page.ID,
                 owner: _testUser.ID,
                 title: "LIST",
                 order: 10
             );
 
-            await repository.PersistList(newList, page.ID);
+            await repository.PersistList(newList);
 
             var list = await repository.GetList(newList.ID);
 
@@ -204,7 +207,7 @@ namespace test
                 order: 20
             );
 
-            await repository.PersistList(updatedList, page.ID);
+            await repository.PersistList(updatedList);
 
             var listAfterUpdate = await repository.GetList(updatedList.ID);
 
@@ -236,12 +239,13 @@ namespace test
 
             var imageBlock = new ImageBlock(
                 id: Guid.NewGuid(),
+                page: page.ID,
                 owner: _testUser.ID,
                 title: "IMAGE BLOCK",
                 order: 10
             );
 
-            await repository.PersistImageBlock(imageBlock, page.ID);
+            await repository.PersistImageBlock(imageBlock);
 
             var newImage = new Image(
                 id: Guid.NewGuid(),
@@ -294,12 +298,13 @@ namespace test
 
             var list = new g.List(
                 id: Guid.NewGuid(),
+                page: page.ID,
                 owner: _testUser.ID,
                 title: "LIST",
                 order: 10
             );
 
-            await repository.PersistList(list, page.ID);
+            await repository.PersistList(list);
 
             var newListItem = new ListItem(
                 id: Guid.NewGuid(),

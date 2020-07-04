@@ -162,7 +162,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST LIST\",\r\n    \"order\": 100\r\n}",
+							"raw": "{\r\n    \"page\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST LIST\",\r\n    \"order\": 100\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -190,7 +190,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/lists/1f02c1a8-7962-4648-87af-d647c961aef0",
+							"raw": "https://localhost:5001/api/lists/131acf11-1938-427c-a642-3cf95329717c",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -199,7 +199,7 @@
 							"path": [
 								"api",
 								"lists",
-								"1f02c1a8-7962-4648-87af-d647c961aef0"
+								"131acf11-1938-427c-a642-3cf95329717c"
 							]
 						}
 					},
@@ -212,7 +212,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST PAGE UPDATED\",\r\n    \"order\": 300\r\n}",
+							"raw": "{\r\n    \"id\": \"131acf11-1938-427c-a642-3cf95329717c\",\r\n    \"page\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST PAGE UPDATED\",\r\n    \"order\": 300\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -220,7 +220,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/lists/1f02c1a8-7962-4648-87af-d647c961aef0",
+							"raw": "https://localhost:5001/api/lists/131acf11-1938-427c-a642-3cf95329717c",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -229,7 +229,7 @@
 							"path": [
 								"api",
 								"lists",
-								"1f02c1a8-7962-4648-87af-d647c961aef0"
+								"131acf11-1938-427c-a642-3cf95329717c"
 							]
 						}
 					},
@@ -289,7 +289,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST IMAGEBLOCK\",\r\n    \"order\": 100\r\n}",
+							"raw": "{\r\n    \"page\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST IMAGEBLOCK\",\r\n    \"order\": 100\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -317,7 +317,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/imageblocks/71055054-183c-4d26-96dd-b8de834d266f",
+							"raw": "https://localhost:5001/api/imageblocks/f43d8125-faf2-4f5e-b1fa-e626344d85b6",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -326,7 +326,7 @@
 							"path": [
 								"api",
 								"imageblocks",
-								"71055054-183c-4d26-96dd-b8de834d266f"
+								"f43d8125-faf2-4f5e-b1fa-e626344d85b6"
 							]
 						}
 					},
@@ -339,7 +339,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST IMAGEBLOCK UPDATED\",\r\n    \"order\": 200\r\n}",
+							"raw": "{\r\n    \"id\": \"f43d8125-faf2-4f5e-b1fa-e626344d85b6\",\r\n    \"page\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST IMAGEBLOCK UPDATED\",\r\n    \"order\": 200\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -347,7 +347,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/imageblocks/71055054-183c-4d26-96dd-b8de834d266f",
+							"raw": "https://localhost:5001/api/imageblocks/f43d8125-faf2-4f5e-b1fa-e626344d85b6",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -356,7 +356,7 @@
 							"path": [
 								"api",
 								"imageblocks",
-								"71055054-183c-4d26-96dd-b8de834d266f"
+								"f43d8125-faf2-4f5e-b1fa-e626344d85b6"
 							]
 						}
 					},
@@ -416,7 +416,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST BLOCK\",\r\n    \"text\": \"TEST TEXT\",\r\n    \"order\": 100\r\n}",
+							"raw": "{\r\n    \"page\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST BLOCK\",\r\n    \"text\": \"TEST TEXT\",\r\n    \"order\": 100\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -444,7 +444,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/richtextblocks/7402eca1-9fe7-4742-95af-8709357319c2",
+							"raw": "https://localhost:5001/api/richtextblocks/796ea261-ec01-4e1f-918b-4415f7297711",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -453,7 +453,7 @@
 							"path": [
 								"api",
 								"richtextblocks",
-								"7402eca1-9fe7-4742-95af-8709357319c2"
+								"796ea261-ec01-4e1f-918b-4415f7297711"
 							]
 						}
 					},
@@ -466,7 +466,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pageID\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST BLOCK UPDATED\",\r\n    \"text\": \"TEST TEXT UPDATED\",\r\n    \"order\": 200\r\n}",
+							"raw": "{\r\n    \"id\": \"796ea261-ec01-4e1f-918b-4415f7297711\",\r\n    \"page\": \"796ac644-ff8e-47da-bbdc-ca8f822ce5f6\",\r\n    \"title\": \"AAA TEST BLOCK UPDATED\",\r\n    \"text\": \"TEST TEXT UPDATED\",\r\n    \"order\": 200\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -474,7 +474,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/richtextblocks/7402eca1-9fe7-4742-95af-8709357319c2",
+							"raw": "https://localhost:5001/api/richtextblocks/796ea261-ec01-4e1f-918b-4415f7297711",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -483,7 +483,7 @@
 							"path": [
 								"api",
 								"richtextblocks",
-								"7402eca1-9fe7-4742-95af-8709357319c2"
+								"796ea261-ec01-4e1f-918b-4415f7297711"
 							]
 						}
 					},

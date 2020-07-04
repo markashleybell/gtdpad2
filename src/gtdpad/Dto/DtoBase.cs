@@ -1,8 +1,8 @@
 using System;
 
-namespace gtdpad.Models
+namespace gtdpad.Dto
 {
-    public class DeleteImageBlockViewModel
+    public abstract class DtoBase<T>
     {
         public Guid ID { get; set; }
     }

@@ -8,26 +8,29 @@ namespace gtdpad.Domain
     {
         public ImageBlock(
             Guid id,
+            Guid page,
             Guid owner,
             string title,
             int order)
             : this(
                 id,
+                page,
                 owner,
                 title,
                 order,
                 default)
-        {
-        }
+        { }
 
         public ImageBlock(
             Guid id,
+            Guid page,
             Guid owner,
             string title,
             int order,
             IEnumerable<Image> images)
             : base(
                 id,
+                page,
                 owner,
                 title,
                 order) =>
@@ -36,6 +39,6 @@ namespace gtdpad.Domain
         public IEnumerable<Image> Images { get; set; }
 
         public ImageBlock With(string title = default, int? order = default) =>
-            new ImageBlock(ID, Owner, title ?? Title, order ?? Order);
+            new ImageBlock(ID, Page, Owner, title ?? Title, order ?? Order);
     }
 }

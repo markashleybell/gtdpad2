@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using gtdpad.Support;
+using gtdpad.Dto;
+using System.Linq;
 
 namespace gtdpad.Controllers
 {
@@ -22,8 +24,12 @@ namespace gtdpad.Controllers
         { }
 
         [HttpGet]
-        public async Task<IActionResult> Get() =>
-            Ok(await Repository.GetLists(UserID));
+        public async Task<IActionResult> Get()
+        {
+            var lists = await Repository.GetLists(UserID);
+
+            return Ok(lists.Select(ListDto.FromList));
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -32,30 +38,36 @@ namespace gtdpad.Controllers
 
             return section is null
                 ? (IActionResult)NotFound()
-                : Ok(section);
+                : Ok(ListDto.FromList(section));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateListViewModel model)
+        public async Task<IActionResult> Post(ListDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
 
             var section = new List(
                 id: Guid.NewGuid(),
+                page: dto.Page,
                 owner: UserID,
-                title: model.Title,
-                order: model.Order
+                title: dto.Title,
+                order: dto.Order
             );
 
-            await Repository.PersistList(section, model.PageID);
+            await Repository.PersistList(section);
 
-            return CreatedAtAction(nameof(Get), section);
+            return CreatedAtAction(nameof(Get), dto.WithID(section.ID));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, UpdateListViewModel model)
+        public async Task<IActionResult> Put(Guid id, ListDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
+
+            if (dto.ID != id)
+            {
+                return BadRequest();
+            }
 
             var section = await Repository.GetList(id);
 
@@ -65,13 +77,13 @@ namespace gtdpad.Controllers
             }
 
             var updatedSection = section.With(
-                title: model.Title,
-                order: model.Order
+                title: dto.Title,
+                order: dto.Order
             );
 
-            await Repository.PersistList(updatedSection, model.PageID);
+            await Repository.PersistList(updatedSection);
 
-            return Ok(updatedSection);
+            return Ok(dto);
         }
 
         [HttpDelete("{id}")]

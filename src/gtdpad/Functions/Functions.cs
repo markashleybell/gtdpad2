@@ -1,5 +1,5 @@
 using System;
-using gtdpad.Domain;
+using gtdpad.Dto;
 using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;
 using static gtdpad.Constants;
@@ -8,6 +8,16 @@ namespace gtdpad
 {
     public static class Functions
     {
+        public static T WithID<T>(this T dto, Guid id)
+            where T : DtoBase<T>
+        {
+            Guard.AgainstNull(dto, nameof(dto));
+
+            dto.ID = id;
+
+            return dto;
+        }
+
         public static bool IsNonEmptyAndLocal(this IUrlHelper urlHelper, Uri uri) =>
             uri is object && urlHelper is object && urlHelper.IsLocalUrl(uri.ToString());
 

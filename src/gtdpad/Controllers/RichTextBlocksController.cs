@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using gtdpad.Support;
+using gtdpad.Dto;
+using System.Linq;
 
 namespace gtdpad.Controllers
 {
@@ -22,8 +24,12 @@ namespace gtdpad.Controllers
         { }
 
         [HttpGet]
-        public async Task<IActionResult> Get() =>
-            Ok(await Repository.GetRichTextBlocks(UserID));
+        public async Task<IActionResult> Get()
+        {
+            var richTextBlocks = await Repository.GetRichTextBlocks(UserID);
+
+            return Ok(richTextBlocks.Select(RichTextBlockDto.FromRichTextBlock));
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -32,31 +38,37 @@ namespace gtdpad.Controllers
 
             return section is null
                 ? (IActionResult)NotFound()
-                : Ok(section);
+                : Ok(RichTextBlockDto.FromRichTextBlock(section));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreateRichTextBlockViewModel model)
+        public async Task<IActionResult> Post(RichTextBlockDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
 
             var section = new RichTextBlock(
                 id: Guid.NewGuid(),
+                page: dto.Page,
                 owner: UserID,
-                title: model.Title,
-                text: model.Text,
-                order: model.Order
+                title: dto.Title,
+                text: dto.Text,
+                order: dto.Order
             );
 
-            await Repository.PersistRichTextBlock(section, model.PageID);
+            await Repository.PersistRichTextBlock(section);
 
-            return CreatedAtAction(nameof(Get), section);
+            return CreatedAtAction(nameof(Get), dto.WithID(section.ID));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, UpdateRichTextBlockViewModel model)
+        public async Task<IActionResult> Put(Guid id, RichTextBlockDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
+
+            if (dto.ID != id)
+            {
+                return BadRequest();
+            }
 
             var section = await Repository.GetRichTextBlock(id);
 
@@ -66,14 +78,14 @@ namespace gtdpad.Controllers
             }
 
             var updatedSection = section.With(
-                title: model.Title,
-                text: model.Text,
-                order: model.Order
+                title: dto.Title,
+                text: dto.Text,
+                order: dto.Order
             );
 
-            await Repository.PersistRichTextBlock(updatedSection, model.PageID);
+            await Repository.PersistRichTextBlock(updatedSection);
 
-            return Ok(updatedSection);
+            return Ok(dto);
         }
 
         [HttpDelete("{id}")]

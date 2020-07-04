@@ -19,7 +19,7 @@ namespace gtdpad.Services
 
         Task<List> GetList(Guid id);
 
-        Task PersistList(List list, Guid pageID);
+        Task PersistList(List list);
 
         Task DeleteList(Guid id);
 
@@ -27,7 +27,7 @@ namespace gtdpad.Services
 
         Task<RichTextBlock> GetRichTextBlock(Guid id);
 
-        Task PersistRichTextBlock(RichTextBlock richTextBlock, Guid pageID);
+        Task PersistRichTextBlock(RichTextBlock richTextBlock);
 
         Task DeleteRichTextBlock(Guid id);
 
@@ -35,7 +35,7 @@ namespace gtdpad.Services
 
         Task<ImageBlock> GetImageBlock(Guid id);
 
-        Task PersistImageBlock(ImageBlock imageBlock, Guid pageID);
+        Task PersistImageBlock(ImageBlock imageBlock);
 
         Task DeleteImageBlock(Guid id);
 

@@ -8,26 +8,29 @@ namespace gtdpad.Domain
     {
         public List(
             Guid id,
+            Guid page,
             Guid owner,
             string title,
             int order)
             : this(
                 id,
+                page,
                 owner,
                 title,
                 order,
                 default)
-        {
-        }
+        { }
 
         public List(
             Guid id,
+            Guid page,
             Guid owner,
             string title,
             int order,
             IEnumerable<ListItem> items)
             : base(
                 id,
+                page,
                 owner,
                 title,
                 order) =>
@@ -36,6 +39,6 @@ namespace gtdpad.Domain
         public IEnumerable<ListItem> Items { get; }
 
         public List With(string title = default, int? order = default) =>
-            new List(ID, Owner, title ?? Title, order ?? Order);
+            new List(ID, Page, Owner, title ?? Title, order ?? Order);
     }
 }

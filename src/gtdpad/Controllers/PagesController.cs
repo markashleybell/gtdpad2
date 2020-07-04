@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using gtdpad.Domain;
+using gtdpad.Dto;
 using gtdpad.Models;
 using gtdpad.Services;
 using gtdpad.Support;
@@ -20,8 +22,12 @@ namespace gtdpad.Controllers
         { }
 
         [HttpGet]
-        public async Task<IActionResult> Get() =>
-            Ok(await Repository.GetPages(UserID));
+        public async Task<IActionResult> Get()
+        {
+            var pages = await Repository.GetPages(UserID);
+
+            return Ok(pages.Select(PageDto.FromPage));
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
@@ -30,31 +36,31 @@ namespace gtdpad.Controllers
 
             return page is null
                 ? (IActionResult)NotFound()
-                : Ok(page);
+                : Ok(PageDto.FromPage(page));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(CreatePageViewModel model)
+        public async Task<IActionResult> Post(PageDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
 
             var page = new Page(
                 id: Guid.NewGuid(),
                 owner: UserID,
-                title: model.Title,
-                slug: model.Slug,
-                order: model.Order
+                title: dto.Title,
+                slug: dto.Slug,
+                order: dto.Order
             );
 
             await Repository.PersistPage(page);
 
-            return CreatedAtAction(nameof(Get), new { id = page.ID }, page);
+            return CreatedAtAction(nameof(Get), new { id = page.ID }, dto.WithID(page.ID));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, UpdatePageViewModel model)
+        public async Task<IActionResult> Put(Guid id, PageDto dto)
         {
-            Guard.AgainstNull(model, nameof(model));
+            Guard.AgainstNull(dto, nameof(dto));
 
             var page = await Repository.GetPage(id);
 
@@ -64,9 +70,9 @@ namespace gtdpad.Controllers
             }
 
             var updatedPage = page.With(
-                title: model.Title,
-                slug: model.Slug,
-                order: model.Order
+                title: dto.Title,
+                slug: dto.Slug,
+                order: dto.Order
             );
 
             await Repository.PersistPage(updatedPage);

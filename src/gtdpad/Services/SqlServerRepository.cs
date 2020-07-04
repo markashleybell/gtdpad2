@@ -113,6 +113,7 @@ WHERE
                 const string sql = @"
 SELECT
     s.ID,
+    s.Page,
     s.Owner,
     s.Title,
     s.[Order]
@@ -132,6 +133,7 @@ WHERE
                 const string sql = @"
 SELECT
     s.ID,
+    s.Page,
     s.Owner,
     s.Title,
     s.[Order]
@@ -177,6 +179,7 @@ WHERE
                 const string sql = @"
 SELECT
     s.ID,
+    s.Page,
     s.Owner,
     s.Title,
     tb.Text,
@@ -223,7 +226,7 @@ UPDATE Images SET FileExtension = @FileExtension, [Order] = @Order WHERE ID = @I
                 );
             });
 
-        public async Task PersistImageBlock(ImageBlock imageBlock, Guid pageID) =>
+        public async Task PersistImageBlock(ImageBlock imageBlock) =>
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO Sections
@@ -246,14 +249,14 @@ UPDATE Sections SET Title = @Title, Page = @Page, [Order] = @Order WHERE ID = @I
                     param: new {
                         imageBlock.ID,
                         imageBlock.Owner,
-                        Page = pageID,
+                        imageBlock.Page,
                         imageBlock.Title,
                         imageBlock.Order
                     }
                 );
             });
 
-        public async Task PersistList(List list, Guid pageID) =>
+        public async Task PersistList(List list) =>
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO Sections
@@ -276,7 +279,7 @@ UPDATE Sections SET Title = @Title, Page = @Page, [Order] = @Order WHERE ID = @I
                     param: new {
                         list.ID,
                         list.Owner,
-                        Page = pageID,
+                        list.Page,
                         list.Title,
                         list.Order
                     }
@@ -332,7 +335,7 @@ UPDATE ListItems SET Text = @Text, [Order] = @Order WHERE ID = @ID;
                 );
             });
 
-        public async Task PersistRichTextBlock(RichTextBlock richTextBlock, Guid pageID) =>
+        public async Task PersistRichTextBlock(RichTextBlock richTextBlock) =>
             await WithConnection(async conn => {
                 const string insertSql = @"
 INSERT INTO Sections
@@ -362,7 +365,7 @@ UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;
                     param: new {
                         richTextBlock.ID,
                         richTextBlock.Owner,
-                        Page = pageID,
+                        richTextBlock.Page,
                         richTextBlock.Title,
                         richTextBlock.Text,
                         richTextBlock.Order
@@ -373,7 +376,7 @@ UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;
         public async Task<IEnumerable<List>> GetLists(Guid ownerID) =>
             await WithConnection(async conn => {
                 return await conn.QueryAsync<List>(
-                    sql: "SELECT ID, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 3",
+                    sql: "SELECT ID, Page, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 3",
                     param: new { Owner = ownerID }
                 );
             });
@@ -383,6 +386,7 @@ UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;
                 const string sql = @"
 SELECT
     s.ID,
+    s.Page,
     s.Owner,
     s.Title,
     tb.Text,
@@ -405,7 +409,7 @@ AND
         public async Task<IEnumerable<ImageBlock>> GetImageBlocks(Guid ownerID) =>
             await WithConnection(async conn => {
                 return await conn.QueryAsync<ImageBlock>(
-                    sql: "SELECT ID, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 2",
+                    sql: "SELECT ID, Page, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 2",
                     param: new { Owner = ownerID }
                 );
             });
