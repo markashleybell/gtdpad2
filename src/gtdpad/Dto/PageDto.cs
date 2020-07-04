@@ -1,4 +1,3 @@
-using System;
 using gtdpad.Domain;
 
 namespace gtdpad.Dto

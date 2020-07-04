@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using gtdpad.Domain;
 using gtdpad.Dto;
-using gtdpad.Models;
 using gtdpad.Services;
 using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;

@@ -1,15 +1,12 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using gtdpad.Domain;
-using gtdpad.Models;
+using gtdpad.Dto;
 using gtdpad.Services;
-using Microsoft.AspNetCore.Authorization;
+using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
-using gtdpad.Support;
-using gtdpad.Dto;
-using System.Linq;
 
 namespace gtdpad.Controllers
 {
