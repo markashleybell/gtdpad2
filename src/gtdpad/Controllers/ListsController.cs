@@ -7,17 +7,20 @@ using gtdpad.Services;
 using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
-    public class ListsController : ApiControllerBase<ListsController, List>
+    public class ListsController : ApiControllerBase<ListsController>
     {
         public ListsController(
             ILogger<ListsController> logger,
-            IRepository repository)
+            IRepository repository,
+            IOptionsMonitor<Settings> optionsMonitor)
             : base(
                 logger,
-                repository)
+                repository,
+                optionsMonitor)
         { }
 
         [HttpGet]

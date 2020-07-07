@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using gtdpad.Auth;
+using gtdpad.Domain;
 using gtdpad.Models;
 using gtdpad.Services;
 using gtdpad.Support;
@@ -7,83 +9,43 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using static gtdpad.Constants;
 
 namespace gtdpad.Controllers
 {
-    public class UsersController : ControllerBase
+    public class UsersController : ApiControllerBase<UsersController>
     {
-        private readonly Settings _cfg;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IDateTimeService _dateTimeService;
         private readonly IUserService _userService;
 
         public UsersController(
+            ILogger<UsersController> logger,
+            IRepository repository,
             IOptionsMonitor<Settings> optionsMonitor,
-            IHttpContextAccessor httpContextAccessor,
             IDateTimeService dateTimeService,
             IUserService userService)
+            : base(
+                logger,
+                repository,
+                optionsMonitor)
         {
-            Guard.AgainstNull(optionsMonitor, nameof(optionsMonitor));
-
-            _cfg = optionsMonitor.CurrentValue;
-            _httpContextAccessor = httpContextAccessor;
             _dateTimeService = dateTimeService;
             _userService = userService;
         }
 
+        [HttpPost("authenticate")]
         [AllowAnonymous]
-        public IActionResult Login(Uri returnUrl)
+        public async Task<IActionResult> Authenticate(AuthenticateRequest request)
         {
-            var model = new LoginViewModel {
-                ReturnUrl = returnUrl
-            };
+            Guard.AgainstNull(request, nameof(request));
 
-            return View(model);
-        }
+            var (valid, response) = await _userService.Authenticate(request.Email, request.Password);
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            Guard.AgainstNull(model, nameof(model));
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var (valid, id) = await _userService.ValidateLogin(model.Email, model.Password);
-
-            if (!valid)
-            {
-                return View(model);
-            }
-
-            var principal = _userService.GetClaimsPrincipal(id.Value, model.Email);
-
-            var authenticationProperties = new AuthenticationProperties {
-                IsPersistent = true,
-                ExpiresUtc = _dateTimeService.Now.AddDays(_cfg.PersistentSessionLengthInDays)
-            };
-
-            await _httpContextAccessor.HttpContext
-                .SignInAsync(principal, authenticationProperties)
-                .ConfigureAwait(false);
-
-            var returnUrl = Url.IsNonEmptyAndLocal(model.ReturnUrl)
-                ? model.ReturnUrl
-                : SiteRootUri;
-
-            return Redirect(returnUrl.ToString());
-        }
-
-        public async Task<IActionResult> Logout()
-        {
-            await _httpContextAccessor.HttpContext.SignOutAsync();
-
-            return Redirect(SiteRootUri.ToString());
+            return !valid
+                ? (IActionResult)BadRequest()
+                : Ok(response);
         }
     }
 }

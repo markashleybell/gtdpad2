@@ -10,6 +10,10 @@ namespace gtdpad.Support
 
         public string ConnectionString => ConnectionStrings["Main"];
 
+        public string TokenSecret { get; set; }
+
         public int PersistentSessionLengthInDays { get; set; }
+
+        public string LoginRedirect { get; set; }
     }
 }

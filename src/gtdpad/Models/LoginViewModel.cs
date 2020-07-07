@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace gtdpad.Models
@@ -12,7 +11,5 @@ namespace gtdpad.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        public Uri ReturnUrl { get; set; }
     }
 }

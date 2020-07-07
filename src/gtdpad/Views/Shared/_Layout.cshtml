@@ -10,6 +10,6 @@
     <div class="container">
         @RenderBody()
     </div>
-    <script src="/main.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>

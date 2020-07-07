@@ -1,61 +1,11 @@
 ﻿@model IndexViewModel
 
 <div class="row">
-    <div class="col">
-        <p>Logged in: @(Model.User) [<a asp-controller="Users" asp-action="Logout">Log Out</a>]</p>
-
-        <p>@(Model.PageTitle)</p>
-
-        <ul>
-            @foreach (var p in Model.Pages)
-            {
-                <li>@p.Title [@p.ID]</li>
-            }
-        </ul>
-
-        <p>
-            <select class="form-control" id="endpoints">
-                <option>POST api/lists</option>
-                <option>PUT api/lists/{id}</option>
-                <option>DELETE api/lists/{id}</option>
-            </select>
-        </p>
-
-        <form action="" id="harness">
-            <input type="hidden" name="PageID" placeholder="PageID" value="@Model.PageID" />
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">ID</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="ID" value="836C0101-5BA2-4923-B9A3-4C7A70586E71" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Title</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="Title" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Order</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="Order" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Slug</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="Slug" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Text</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" name="Text"></textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <button class="form-control">Save</button>
-            </div>
-        </form>
+    <div class="col" id="content">
     </div>
 </div>
+
+@section scripts {
+    <script src="/login.js"></script>
+    <script src="/index.js"></script>
+}

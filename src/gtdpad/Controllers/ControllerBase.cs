@@ -1,17 +1,39 @@
 using System;
 using System.Security.Claims;
+using gtdpad.Services;
+using gtdpad.Support;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
-    public class ControllerBase : Controller
+    [Authorize]
+    public class ControllerBase<TController> : Controller
     {
+        public ControllerBase(
+            ILogger<TController> logger,
+            IRepository repository,
+            IOptionsMonitor<Settings> optionsMonitor)
+        {
+            Guard.AgainstNull(optionsMonitor, nameof(optionsMonitor));
+
+            Logger = logger;
+            Repository = repository;
+            Settings = optionsMonitor.CurrentValue;
+        }
+
+        protected ILogger<TController> Logger { get; }
+
+        protected IRepository Repository { get; }
+
+        protected Settings Settings { get; }
+
         protected Guid UserID
         {
             get
             {
-                return new Guid("DF77778F-2EF3-49AF-A1A8-B1F064891EF5");
-
                 if (User?.Identity is null)
                 {
                     return Guid.Empty;
@@ -24,8 +46,5 @@ namespace gtdpad.Controllers
                 return value is object ? new Guid(value) : Guid.Empty;
             }
         }
-
-        public override PartialViewResult PartialView(string name, object model) =>
-            base.PartialView($"_{name}", model);
     }
 }

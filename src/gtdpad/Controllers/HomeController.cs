@@ -2,36 +2,38 @@ using System.Linq;
 using System.Threading.Tasks;
 using gtdpad.Models;
 using gtdpad.Services;
+using gtdpad.Support;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
-    [Authorize]
-    public class HomeController : ControllerBase
+    public class HomeController : ControllerBase<HomeController>
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IRepository _repository;
+        public HomeController(
+            ILogger<HomeController> logger,
+            IRepository repository,
+            IOptionsMonitor<Settings> optionsMonitor)
+            : base(
+                logger,
+                repository,
+                optionsMonitor)
+        { }
 
-        public HomeController(ILogger<HomeController> logger, IRepository repository)
+        [AllowAnonymous]
+        public IActionResult Index()
         {
-            _logger = logger;
-            _repository = repository;
+            var model = new IndexViewModel();
+
+            return View(model);
         }
 
-        public async Task<IActionResult> Index()
+        [AllowAnonymous]
+        public IActionResult Login()
         {
-            var pages = await _repository.GetPages(UserID);
-
-            var index = pages.First();
-
-            var model = new IndexViewModel {
-                User = User.Identity.Name,
-                PageID = index.ID,
-                PageTitle = index.Title,
-                Pages = pages
-            };
+            var model = new LoginViewModel();
 
             return View(model);
         }

@@ -1,26 +1,23 @@
-using System;
 using gtdpad.Services;
+using gtdpad.Support;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ApiControllerBase<TController, TEntity> : Controller
+    public class ApiControllerBase<TController> : ControllerBase<TController>
     {
         public ApiControllerBase(
             ILogger<TController> logger,
-            IRepository repository)
-        {
-            Logger = logger;
-            Repository = repository;
-        }
-
-        protected ILogger<TController> Logger { get; }
-
-        protected IRepository Repository { get; }
-
-        protected Guid UserID => new Guid("DF77778F-2EF3-49AF-A1A8-B1F064891EF5");
+            IRepository repository,
+            IOptionsMonitor<Settings> optionsMonitor)
+            : base(
+                logger,
+                repository,
+                optionsMonitor)
+        { }
     }
 }
