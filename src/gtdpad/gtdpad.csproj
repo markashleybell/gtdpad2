@@ -21,6 +21,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <TypeScriptCompile Update="wwwroot\index.ts">
+        <SubType>Code</SubType>
+      </TypeScriptCompile>
       <TypeScriptCompile Update="wwwroot\login.ts">
         <SubType>Code</SubType>
       </TypeScriptCompile>
