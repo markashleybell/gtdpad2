@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,36 +14,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.0" />
-        <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="3.9.5">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
         <PackageReference Include="Microsoft.VisualStudio.Validation" Version="15.5.31" />
     </ItemGroup>
-
-    <ItemGroup>
-      <TypeScriptCompile Update="wwwroot\index.ts">
-        <SubType>Code</SubType>
-      </TypeScriptCompile>
-      <TypeScriptCompile Update="wwwroot\login.ts">
-        <SubType>Code</SubType>
-      </TypeScriptCompile>
-    </ItemGroup>
-
-    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-      <TypeScriptTarget>ES2015</TypeScriptTarget>
-      <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
-      <TypeScriptModuleKind>ES6</TypeScriptModuleKind>
-      <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
-      <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-      <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
-      <TypeScriptOutFile />
-      <TypeScriptOutDir />
-      <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
-      <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
-      <TypeScriptSourceMap>True</TypeScriptSourceMap>
-      <TypeScriptMapRoot />
-      <TypeScriptSourceRoot />
-    </PropertyGroup>
 
 </Project>

@@ -358,3 +358,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Client-side build artifacts
+**/gtdpad/wwwroot/**/*.js
+**/gtdpad/wwwroot/**/*.css
+**/gtdpad/wwwroot/**/*.map

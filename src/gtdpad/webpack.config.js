@@ -1,5 +1,6 @@
-const webpack = require('webpack');
+const _ = require('webpack');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -19,13 +20,6 @@ const config = {
                 test: /\.js$/,
                 use: 'babel-loader',
                 exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    'vue-style-loader',
-                    'css-loader'
-                ]
             },
             {
                 test: /\.ts(x)?$/,
@@ -48,6 +42,12 @@ const config = {
         ]
     },
     plugins: [
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: './node_modules/bootstrap/dist/css/bootstrap.min.css', to: '../css/bootstrap.min.css' },
+                { from: './node_modules/bootstrap/dist/css/bootstrap.min.css.map', to: '../css/bootstrap.min.css.map' }
+            ]
+        }),
         new VueLoaderPlugin(),
         new CleanWebpackPlugin()
     ],
