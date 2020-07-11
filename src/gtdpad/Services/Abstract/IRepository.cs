@@ -15,7 +15,7 @@ namespace gtdpad.Services
 
         Task DeletePage(Guid id);
 
-        Task<IEnumerable<List>> GetLists(Guid ownerID);
+        Task<IEnumerable<List>> GetLists(Guid pageID);
 
         Task<List> GetList(Guid id);
 
@@ -23,7 +23,7 @@ namespace gtdpad.Services
 
         Task DeleteList(Guid id);
 
-        Task<IEnumerable<RichTextBlock>> GetRichTextBlocks(Guid ownerID);
+        Task<IEnumerable<RichTextBlock>> GetRichTextBlocks(Guid pageID);
 
         Task<RichTextBlock> GetRichTextBlock(Guid id);
 
@@ -31,7 +31,7 @@ namespace gtdpad.Services
 
         Task DeleteRichTextBlock(Guid id);
 
-        Task<IEnumerable<ImageBlock>> GetImageBlocks(Guid ownerID);
+        Task<IEnumerable<ImageBlock>> GetImageBlocks(Guid pageID);
 
         Task<ImageBlock> GetImageBlock(Guid id);
 

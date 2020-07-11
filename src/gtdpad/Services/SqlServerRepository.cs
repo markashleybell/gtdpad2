@@ -373,15 +373,15 @@ UPDATE TextBlocks SET Text = @Text WHERE ID = @ID;
                 );
             });
 
-        public async Task<IEnumerable<List>> GetLists(Guid ownerID) =>
+        public async Task<IEnumerable<List>> GetLists(Guid pageID) =>
             await WithConnection(async conn => {
                 return await conn.QueryAsync<List>(
-                    sql: "SELECT ID, Page, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 3",
-                    param: new { Owner = ownerID }
+                    sql: "SELECT ID, Page, Owner, Title, [Order] FROM Sections WHERE Page = @Page AND Type = 3",
+                    param: new { Page = pageID }
                 );
             });
 
-        public async Task<IEnumerable<RichTextBlock>> GetRichTextBlocks(Guid ownerID) =>
+        public async Task<IEnumerable<RichTextBlock>> GetRichTextBlocks(Guid pageID) =>
             await WithConnection(async conn => {
                 const string sql = @"
 SELECT
@@ -396,21 +396,21 @@ FROM
 INNER JOIN
     TextBlocks tb ON tb.ID = s.ID
 WHERE
-    Owner = @Owner
+    s.Page = @Page
 AND
     Type = 1";
 
                 return await conn.QueryAsync<RichTextBlock>(
                     sql: sql,
-                    param: new { Owner = ownerID }
+                    param: new { Page = pageID }
                 );
             });
 
-        public async Task<IEnumerable<ImageBlock>> GetImageBlocks(Guid ownerID) =>
+        public async Task<IEnumerable<ImageBlock>> GetImageBlocks(Guid pageID) =>
             await WithConnection(async conn => {
                 return await conn.QueryAsync<ImageBlock>(
-                    sql: "SELECT ID, Page, Owner, Title, [Order] FROM Sections WHERE Owner = @Owner AND Type = 2",
-                    param: new { Owner = ownerID }
+                    sql: "SELECT ID, Page, Owner, Title, [Order] FROM Sections WHERE Page = @Page AND Type = 2",
+                    param: new { Page = pageID }
                 );
             });
 

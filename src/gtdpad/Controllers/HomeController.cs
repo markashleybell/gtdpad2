@@ -37,5 +37,8 @@ namespace gtdpad.Controllers
 
             return View(model);
         }
+
+        [AllowAnonymous]
+        public IActionResult Routes() => View();
     }
 }

@@ -15,6 +15,7 @@ using static gtdpad.Constants;
 
 namespace gtdpad.Controllers
 {
+    [Route("api/users")]
     public class UsersController : ApiControllerBase<UsersController>
     {
         private readonly IDateTimeService _dateTimeService;

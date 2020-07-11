@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
+    [Route("api/pages/{pageID}/lists")]
     public class ListsController : ApiControllerBase<ListsController>
     {
         public ListsController(
@@ -24,15 +25,15 @@ namespace gtdpad.Controllers
         { }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(Guid pageID)
         {
-            var lists = await Repository.GetLists(UserID);
+            var lists = await Repository.GetLists(pageID);
 
             return Ok(lists.Select(ListDto.FromList));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> Get(Guid _, Guid id)
         {
             var section = await Repository.GetList(id);
 

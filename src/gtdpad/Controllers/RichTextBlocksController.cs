@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
+    [Route("api/pages/{pageID}/richtextblocks")]
     public class RichTextBlocksController : ApiControllerBase<RichTextBlocksController>
     {
         public RichTextBlocksController(
@@ -24,15 +25,15 @@ namespace gtdpad.Controllers
         { }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(Guid pageID)
         {
-            var richTextBlocks = await Repository.GetRichTextBlocks(UserID);
+            var richTextBlocks = await Repository.GetRichTextBlocks(pageID);
 
             return Ok(richTextBlocks.Select(RichTextBlockDto.FromRichTextBlock));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> Get(Guid _, Guid id)
         {
             var section = await Repository.GetRichTextBlock(id);
 

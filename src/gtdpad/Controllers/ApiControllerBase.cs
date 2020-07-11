@@ -7,7 +7,6 @@ using Microsoft.Extensions.Options;
 namespace gtdpad.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
     public class ApiControllerBase<TController> : ControllerBase<TController>
     {
         public ApiControllerBase(

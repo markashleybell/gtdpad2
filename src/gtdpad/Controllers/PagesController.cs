@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
+    [Route("api/pages")]
     public class PagesController : ApiControllerBase<PagesController>
     {
         public PagesController(

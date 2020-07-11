@@ -14,14 +14,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/pages",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages",
 							"path": [
-								"api",
 								"pages"
 							]
 						}
@@ -43,14 +37,8 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/pages",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages",
 							"path": [
-								"api",
 								"pages"
 							]
 						}
@@ -63,14 +51,8 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/pages/af44a0b0-be7c-455e-9dc7-a31acda6d897",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/af44a0b0-be7c-455e-9dc7-a31acda6d897",
 							"path": [
-								"api",
 								"pages",
 								"af44a0b0-be7c-455e-9dc7-a31acda6d897"
 							]
@@ -93,14 +75,8 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/pages/af44a0b0-be7c-455e-9dc7-a31acda6d897",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/af44a0b0-be7c-455e-9dc7-a31acda6d897",
 							"path": [
-								"api",
 								"pages",
 								"af44a0b0-be7c-455e-9dc7-a31acda6d897"
 							]
@@ -114,20 +90,36 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/pages/6ede1ccd-7775-4f1d-9aac-8b024cfe1f89",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/7a34d109-3869-454f-aa66-2dc3f6a0af15",
 							"path": [
-								"api",
 								"pages",
-								"6ede1ccd-7775-4f1d-9aac-8b024cfe1f89"
+								"7a34d109-3869-454f-aa66-2dc3f6a0af15"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c5597015-6151-4ce3-909b-cd0df058d776",
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url = pm.variables.get(\"baseUrl\") + pm.request.url;"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b1f527ac-b901-456b-9cb6-0b1642cba7b8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -141,14 +133,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/lists",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/lists",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"lists"
 							]
 						}
@@ -170,14 +158,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/lists",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/lists",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"lists"
 							]
 						}
@@ -190,14 +174,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/lists/131acf11-1938-427c-a642-3cf95329717c",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/lists/131acf11-1938-427c-a642-3cf95329717c",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"lists",
 								"131acf11-1938-427c-a642-3cf95329717c"
 							]
@@ -220,14 +200,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/lists/131acf11-1938-427c-a642-3cf95329717c",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/lists/131acf11-1938-427c-a642-3cf95329717c",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"lists",
 								"131acf11-1938-427c-a642-3cf95329717c"
 							]
@@ -241,20 +217,38 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/lists/1f02c1a8-7962-4648-87af-d647c961aef0",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/lists/77ce0bee-b2ad-4f97-bdc3-05b527b6c257",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"lists",
-								"1f02c1a8-7962-4648-87af-d647c961aef0"
+								"77ce0bee-b2ad-4f97-bdc3-05b527b6c257"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e74d5b24-cf96-450b-9fc2-5d2a158c36ce",
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url = pm.variables.get(\"baseUrl\") + pm.request.url;"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "087a2a72-5586-4d55-becf-612ec1c2deb6",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -268,14 +262,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/imageblocks",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/imageblocks",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"imageblocks"
 							]
 						}
@@ -297,14 +287,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/imageblocks",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/imageblocks",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"imageblocks"
 							]
 						}
@@ -317,14 +303,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/imageblocks/f43d8125-faf2-4f5e-b1fa-e626344d85b6",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/imageblocks/f43d8125-faf2-4f5e-b1fa-e626344d85b6",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"imageblocks",
 								"f43d8125-faf2-4f5e-b1fa-e626344d85b6"
 							]
@@ -347,14 +329,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/imageblocks/f43d8125-faf2-4f5e-b1fa-e626344d85b6",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/imageblocks/f43d8125-faf2-4f5e-b1fa-e626344d85b6",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"imageblocks",
 								"f43d8125-faf2-4f5e-b1fa-e626344d85b6"
 							]
@@ -368,20 +346,38 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/imageblocks/71055054-183c-4d26-96dd-b8de834d266f",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/imageblocks/71055054-183c-4d26-96dd-b8de834d266f",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"imageblocks",
 								"71055054-183c-4d26-96dd-b8de834d266f"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2d334085-d214-423d-9317-1b281b1e98db",
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url = pm.variables.get(\"baseUrl\") + pm.request.url;"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "160e7b6a-acf8-42ff-85c6-8eb37fdb72ab",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -395,14 +391,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/richtextblocks",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/richtextblocks",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"richtextblocks"
 							]
 						}
@@ -424,14 +416,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/richtextblocks",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/richtextblocks",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"richtextblocks"
 							]
 						}
@@ -444,14 +432,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/richtextblocks/796ea261-ec01-4e1f-918b-4415f7297711",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/richtextblocks/796ea261-ec01-4e1f-918b-4415f7297711",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"richtextblocks",
 								"796ea261-ec01-4e1f-918b-4415f7297711"
 							]
@@ -474,14 +458,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:5001/api/richtextblocks/796ea261-ec01-4e1f-918b-4415f7297711",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/richtextblocks/796ea261-ec01-4e1f-918b-4415f7297711",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"richtextblocks",
 								"796ea261-ec01-4e1f-918b-4415f7297711"
 							]
@@ -495,14 +475,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:5001/api/richtextblocks/83159080-ceec-4266-b002-262aced3209a",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "5001",
+							"raw": "/pages/796ac644-ff8e-47da-bbdc-ca8f822ce5f6/richtextblocks/83159080-ceec-4266-b002-262aced3209a",
 							"path": [
-								"api",
+								"pages",
+								"796ac644-ff8e-47da-bbdc-ca8f822ce5f6",
 								"richtextblocks",
 								"83159080-ceec-4266-b002-262aced3209a"
 							]
@@ -511,40 +487,84 @@
 					"response": []
 				}
 			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e4da0a0e-8920-4371-a88f-212db227f388",
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url = pm.variables.get(\"baseUrl\") + pm.request.url;"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3197ccf1-052d-4c0a-9300-4760ba04d6c3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Auth",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"testuser@gtdpad.com\",\r\n    \"password\": \"!gtdpad-test2020\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"item": [
+				{
+					"name": "Authenticate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"testuser@gtdpad.com\",\r\n    \"password\": \"!gtdpad-test2020\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/users/authenticate",
+							"path": [
+								"users",
+								"authenticate"
+							]
 						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3f8a5164-2e2f-4beb-aa23-8843173c4077",
+						"type": "text/javascript",
+						"exec": [
+							"pm.request.url = pm.variables.get(\"baseUrl\") + pm.request.url;"
+						]
 					}
 				},
-				"url": {
-					"raw": "https://localhost:5001/api/users/authenticate",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "5001",
-					"path": [
-						"api",
-						"users",
-						"authenticate"
-					]
+				{
+					"listen": "test",
+					"script": {
+						"id": "1feeedc0-ddaa-4770-ae7e-95182044bef5",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
@@ -577,6 +597,13 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ef1d0000-0002-45ae-84f3-e3cb8e7be062",
+			"key": "baseUrl",
+			"value": "https://localhost:5001/api"
 		}
 	],
 	"protocolProfileBehavior": {}

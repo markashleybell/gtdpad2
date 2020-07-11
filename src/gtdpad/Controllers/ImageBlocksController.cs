@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 
 namespace gtdpad.Controllers
 {
+    [Route("api/pages/{pageID}/imageblocks")]
     public class ImageBlocksController : ApiControllerBase<ImageBlocksController>
     {
         public ImageBlocksController(
@@ -24,15 +25,15 @@ namespace gtdpad.Controllers
         { }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(Guid pageID)
         {
-            var imageBlocks = await Repository.GetImageBlocks(UserID);
+            var imageBlocks = await Repository.GetImageBlocks(pageID);
 
             return Ok(imageBlocks.Select(ImageBlockDto.FromImageBlock));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> Get(Guid _, Guid id)
         {
             var section = await Repository.GetImageBlock(id);
 
