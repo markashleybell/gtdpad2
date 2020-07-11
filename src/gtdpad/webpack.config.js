@@ -51,6 +51,11 @@ const config = {
         new VueLoaderPlugin(),
         new CleanWebpackPlugin()
     ],
+    performance: {
+        assetFilter: function (assetFilename) {
+            return !assetFilename.endsWith('.map');
+        }
+    },
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {

@@ -11,7 +11,9 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import 'bootstrap';
+
+    // TODO: Do we actually need any of the Bootstrap JS?
+    // import 'bootstrap';
 
     import Page from './components/Page.vue';
     import PageNavigation from './components/PageNavigation.vue';
@@ -49,6 +51,7 @@
 
                 if (page) {
                     page.title = title;
+                    console.log('UPDATE PAGE API CALL: ' + id);
                 }
             }
         },
