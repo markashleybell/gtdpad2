@@ -22,7 +22,7 @@
         props: {
             httpClient: Object as PropType<IHttpClient>
         },
-        data: function (): ComponentData {
+        data(): ComponentData {
             return {
                 pages: []
             }

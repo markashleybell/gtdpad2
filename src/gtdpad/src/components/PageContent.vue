@@ -1,12 +1,13 @@
 <template>
     <div id="page">
-        <span>{{ page.title }}</span>
+        <h1>{{ page.title }}</h1>
     </div>
 </template>
 
 <script lang="ts">
     import Vue, { PropType } from "vue";
 
+    import { IHttpClient } from '../core/IHttpClient';
     import { IPage } from '../core/IPage';
 
     interface ComponentData {
@@ -15,9 +16,18 @@
 
     export default Vue.extend({
         props: {
-            page: Object as PropType<IPage>
+            httpClient: Object as PropType<IHttpClient>,
+            id: String
         },
-        methods: {
+        data(): ComponentData {
+            return {
+                page: {} as IPage
+            }
+        },
+        watch: {
+            async id() {
+                this.page = await this.httpClient.httpGet<IPage>(`/pages/${this.id}`);
+            }
         }
     });
 </script>
