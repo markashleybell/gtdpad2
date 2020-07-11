@@ -8,36 +8,20 @@
     import Vue, { PropType } from "vue";
     import PageNavigationItem from './PageNavigationItem.vue'
 
-    import { IHttpClient } from '../core/IHttpClient';
     import { IPage } from '../core/IPage';
-
-    interface ComponentData {
-        pages: IPage[];
-    }
 
     export default Vue.extend({
         components: {
             PageNavigationItem
         },
         props: {
-            httpClient: Object as PropType<IHttpClient>
-        },
-        data(): ComponentData {
-            return {
-                pages: []
-            }
+            pages: Array as PropType<IPage[]>
         },
         methods: {
-            async loadData() {
-                this.pages = await this.httpClient.httpGet<IPage[]>('/pages');
-            },
             async itemClicked(e: Event, id: string) {
                 e.preventDefault();
                 this.$emit('item-click', id);
             }
-        },
-        async created() {
-            this.loadData();
         }
     });
 </script>

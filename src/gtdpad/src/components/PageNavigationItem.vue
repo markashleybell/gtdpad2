@@ -1,5 +1,5 @@
 <template>
-    <li><a v-bind:href="'/pages/' + page.slug" @click="$emit('click', $event, page.id)">{{ page.title }}</a></li>
+    <li><a :href="'/pages/' + page.slug" @click="$emit('click', $event, page.id)">{{ page.title }}</a></li>
 </template>
 
 <script lang="ts">
