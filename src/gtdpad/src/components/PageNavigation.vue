@@ -8,7 +8,7 @@
     import Vue, { PropType } from "vue";
     import PageNavigationItem from './PageNavigationItem.vue'
 
-    import { IPage } from '../core/IPage';
+    import { IPage } from '../core/Domain';
 
     export default Vue.extend({
         components: {

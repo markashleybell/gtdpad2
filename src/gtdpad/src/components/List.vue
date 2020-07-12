@@ -5,15 +5,29 @@
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
-    import ListItem from './ListItem.vue'
+    import Vue, { PropType } from "vue";
+    import ListItem from './ListItem.vue';
+
+    import { IList } from '../core/Domain';
+
+    interface ComponentData {
+        title: string;
+        items: any[];
+    }
 
     export default Vue.extend({
         components: {
             ListItem
         },
-        data: function () {
+        props: {
+            list: {
+                type: Object as PropType<IList>,
+                required: true
+            }
+        },
+        data(): ComponentData {
             return {
+                title: '',
                 items: [
                     { id: '100', title: 'Item 1' },
                     { id: '200', title: 'Item 2' },

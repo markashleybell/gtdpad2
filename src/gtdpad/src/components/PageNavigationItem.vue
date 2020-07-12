@@ -5,7 +5,7 @@
 <script lang="ts">
     import Vue, { PropType } from "vue";
 
-    import { IPage } from '../core/IPage';
+    import { IPage } from '../core/Domain';
 
     export default Vue.extend({
         props: {
