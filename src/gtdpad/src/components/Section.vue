@@ -5,15 +5,16 @@
         <button @click="updateTitle">Save</button>
         <div v-if="richtextblock">RICH TEXT BLOCK</div>
         <div v-if="imageblock">IMAGE BLOCK</div>
-        <div v-if="list"><List :list="section" /></div>
+        <div v-if="list"><List :list="section" :http-client="httpClient" /></div>
     </div>
 </template>
 
 <script lang="ts">
-    import Vue, { PropType } from "vue";
+    import Vue, { PropType } from 'vue';
 
     import List from './List.vue';
 
+    import { IHttpClient } from '../core/IHttpClient';
     import { ISection, SectionType } from '../core/Domain';
 
     interface ComponentData {
@@ -27,10 +28,8 @@
             List
         },
         props: {
-            section: {
-                type: Object as PropType<ISection>,
-                required: true
-            }
+            httpClient: { type: Object as PropType<IHttpClient>, required: true },
+            section: { type: Object as PropType<ISection>, required: true }
         },
         data(): ComponentData {
             return {

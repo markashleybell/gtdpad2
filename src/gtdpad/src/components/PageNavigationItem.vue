@@ -3,16 +3,13 @@
 </template>
 
 <script lang="ts">
-    import Vue, { PropType } from "vue";
+    import Vue, { PropType } from 'vue';
 
     import { IPage } from '../core/Domain';
 
     export default Vue.extend({
         props: {
-            page: {
-                type: Object as PropType<IPage>,
-                required: true
-            }
+            page: { type: Object as PropType<IPage>, required: true }
         }
     });
 </script>

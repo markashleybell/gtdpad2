@@ -1,15 +1,36 @@
 <template>
-    <li>{{ item.title }}</li>
+    <li>
+        {{ item.text }}
+        <input type="text" v-model="updatedText" />
+        <button @click="updateTitle">Save</button>
+    </li>
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
+    import Vue, { PropType } from 'vue';
+
+    import { IListItem } from '../core/Domain';
+
+    interface ComponentData {
+        text: string;
+        updatedText: string;
+    }
 
     export default Vue.extend({
         props: {
-            item: {
-                type: Object,
-                required: true
+            item: { type: Object as PropType<IListItem>, required: true }
+        },
+        data(): ComponentData {
+            return {
+                text: this.item.text,
+                updatedText: this.item.text
+            }
+        },
+        methods: {
+            updateTitle() {
+                console.log('PERSIST ITEM TEXT ' + this.item.id);
+                this.text = this.updatedText;
+                this.$emit('text-updated', this.item.id, this.text);
             }
         }
     });

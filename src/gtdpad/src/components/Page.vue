@@ -1,20 +1,17 @@
 <template>
-    <div v-if="!page">
-        <h1>Loading...</h1>
-    </div>
-    <div v-else>
+    <div>
         <h1>{{ page.title }}</h1>
         <input type="text" v-model="updatedTitle" />
         <button @click="updateTitle">Save</button>
-        <Section v-for="section in sections" :key="section.id" :section="section" />
+        <Section v-for="section in sections" :key="section.id" :section="section" :http-client="httpClient" />
     </div>
 </template>
 
 <script lang="ts">
-    import Vue, { PropType } from "vue";
+    import Vue, { PropType } from 'vue';
     import Section from './Section.vue'
 
-    import { IHttpClient } from "../core/IHttpClient";
+    import { IHttpClient } from '../core/IHttpClient';
     import { IPage, ISection, SectionType } from '../core/Domain';
 
     interface ComponentData {
@@ -27,8 +24,8 @@
             Section
         },
         props: {
-            httpClient: Object as PropType<IHttpClient>,
-            page: Object as PropType<IPage>
+            httpClient: { type: Object as PropType<IHttpClient>, required: true },
+            page: { type: Object as PropType<IPage>, required: true }
         },
         data(): ComponentData {
             return {

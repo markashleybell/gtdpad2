@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-    import Vue, { PropType } from "vue";
+    import Vue, { PropType } from 'vue';
     import PageNavigationItem from './PageNavigationItem.vue'
 
     import { IPage } from '../core/Domain';
@@ -15,10 +15,10 @@
             PageNavigationItem
         },
         props: {
-            pages: Array as PropType<IPage[]>
+            pages: { type: Array as PropType<IPage[]>, required: true }
         },
         methods: {
-            async itemClicked(e: Event, id: string) {
+            itemClicked(e: Event, id: string) {
                 e.preventDefault();
                 this.$emit('item-click', id);
             }
