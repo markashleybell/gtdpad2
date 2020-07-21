@@ -1,16 +1,15 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using gtdpad.Auth;
+using gtdpad.Domain;
+using gtdpad.Support;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
-using gtdpad.Domain;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using Microsoft.Extensions.Options;
-using gtdpad.Support;
-using gtdpad.Models;
-using gtdpad.Auth;
+using Microsoft.IdentityModel.Tokens;
 
 namespace gtdpad.Services
 {
@@ -29,10 +28,14 @@ namespace gtdpad.Services
             _repository = repository;
         }
 
-        public async Task<(bool valid, AuthenticateResponse response)> Authenticate(string email, string password)
+        public async Task<(bool valid, AuthenticateResponse response)> Authenticate(
+            string email,
+            string password,
+            Func<DateTime> expires)
         {
             Guard.AgainstNull(email, nameof(email));
             Guard.AgainstNull(password, nameof(password));
+            Guard.AgainstNull(expires, nameof(expires));
 
             var user = await _repository
                 .FindUserByEmail(email)
@@ -49,7 +52,7 @@ namespace gtdpad.Services
 
             if (result == PasswordVerificationResult.Success)
             {
-                var token = GenerateJwt(user);
+                var token = GenerateJwt(user, expires);
 
                 var response = new AuthenticateResponse(user, token);
 
@@ -59,7 +62,7 @@ namespace gtdpad.Services
             return (false, default);
         }
 
-        private string GenerateJwt(User user)
+        private string GenerateJwt(User user, Func<DateTime> expires)
         {
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -73,7 +76,7 @@ namespace gtdpad.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor {
                 Subject = GetClaimsIdentity(user.ID, user.Email),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = expires(),
                 SigningCredentials = signingCredentials
             };
 

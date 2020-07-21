@@ -1,17 +1,12 @@
 using System;
 using System.Threading.Tasks;
 using gtdpad.Auth;
-using gtdpad.Domain;
-using gtdpad.Models;
 using gtdpad.Services;
 using gtdpad.Support;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using static gtdpad.Constants;
 
 namespace gtdpad.Controllers
 {
@@ -42,7 +37,11 @@ namespace gtdpad.Controllers
         {
             Guard.AgainstNull(request, nameof(request));
 
-            var (valid, response) = await _userService.Authenticate(request.Email, request.Password);
+            var (valid, response) = await _userService.Authenticate(
+                email: request.Email,
+                password: request.Password,
+                getExpires: () => DateTime.Now.AddDays(1)
+            );
 
             return !valid
                 ? (IActionResult)BadRequest()
