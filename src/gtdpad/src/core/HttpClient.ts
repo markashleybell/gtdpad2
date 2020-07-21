@@ -50,17 +50,9 @@ export class HttpClient {
     }
 
     private async makeRequest<T>(request: Request): Promise<T> {
-        return await fetch(request).then(r => this.handleResponse<T>(r));
-    }
-
-    private handleResponse<T>(response: Response): Promise<T> {
-        return response.json().then(json => {
-            if (!response.ok) {
-                return Promise.reject(json);
-            }
-
-            return json;
-        });
+        return await fetch(request)
+            .then(response => !response.ok ? Promise.reject(response) : response)
+            .then(response => response.json());
     }
 }
 
