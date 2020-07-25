@@ -22,15 +22,7 @@
     import { IHttpClient } from './core/IHttpClient';
     import { IPage } from './core/Domain';
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJkZjc3Nzc4Zi0yZWYzLTQ5YWYtYTFhOC1iMWYwNjQ4OTFlZjUiLCJlbWFpbCI6InRlc3R1c2VyQGd0ZHBhZC5jb20iLCJyb2xlIjoiTWVtYmVyIiwibmJmIjoxNTk0NDQ4MTM4LCJleHAiOjE1OTUwNTI5MzgsImlhdCI6MTU5NDQ0ODEzOH0.RQky8HIZDMT-ICmDnWl2lewWgMxQCL-CADQZyZk5dXg';
-
-    const loginModal = $('#login-modal');
-
-    loginModal.modal({
-        backdrop: 'static',
-        keyboard: false,
-        show: false
-    });
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJkZjc3Nzc4Zi0yZWYzLTQ5YWYtYTFhOC1iMWYwNjQ4OTFlZjUiLCJlbWFpbCI6InRlc3R1c2VyQGd0ZHBhZC5jb20iLCJyb2xlIjoiTWVtYmVyIiwibmJmIjoxNTk1NjU3MTM5LCJleHAiOjE1OTU3NDM1MzksImlhdCI6MTU5NTY1NzEzOX0.bLKMXQKBjRjeWTm7B1LUprpi3TKN9otajNKXxdRBrDc';
 
     interface ComponentData {
         httpClient: IHttpClient;
@@ -68,7 +60,7 @@
                 this.page = this.pages.length ? this.pages[0] : null;
             } catch (e) {
                 if (e.status === 401) {
-                    loginModal.modal('show');
+                    alert('LOGIN');
                 } else {
                     console.log(e);
                 }
