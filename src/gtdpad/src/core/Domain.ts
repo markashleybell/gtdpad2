@@ -36,3 +36,10 @@ export interface IListItem {
 export interface IList extends ISection {
     items: Array<IListItem>;
 }
+
+export const EmptyPage: IPage = {
+    id: '',
+    title: '',
+    slug: '',
+    order: 0
+}

@@ -1,27 +1,19 @@
 <template>
     <ul>
-        <PageNavigationItem v-for="page in pages" :key="page.id" :page="page" @click="itemClicked" />
+        <li v-for="page in pages" :key="page.id">
+            <router-link :to="{ name: 'page', params: { id: page.id, slug: page.slug } }">{{ page.title }}</router-link>
+        </li>
     </ul>
 </template>
 
 <script lang="ts">
     import Vue, { PropType } from 'vue';
-    import PageNavigationItem from './PageNavigationItem.vue'
 
     import { IPage } from '../core/Domain';
 
     export default Vue.extend({
-        components: {
-            PageNavigationItem
-        },
         props: {
             pages: { type: Array as PropType<IPage[]>, required: true }
-        },
-        methods: {
-            itemClicked(e: Event, id: string) {
-                e.preventDefault();
-                this.$emit('item-click', id);
-            }
         }
     });
 </script>

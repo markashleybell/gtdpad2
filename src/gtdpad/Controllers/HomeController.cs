@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using gtdpad.Models;
@@ -26,14 +27,6 @@ namespace gtdpad.Controllers
         public IActionResult Index()
         {
             var model = new IndexViewModel();
-
-            return View(model);
-        }
-
-        [AllowAnonymous]
-        public IActionResult Login()
-        {
-            var model = new LoginViewModel();
 
             return View(model);
         }

@@ -8,7 +8,6 @@
     import Vue, { PropType } from 'vue';
     import ListItem from './ListItem.vue';
 
-    import { IHttpClient } from '../core/IHttpClient';
     import { IList, IListItem } from '../core/Domain';
 
     interface ComponentData {
@@ -21,7 +20,6 @@
             ListItem
         },
         props: {
-            httpClient: { type: Object as PropType<IHttpClient>, required: true },
             list: { type: Object as PropType<IList>, required: true }
         },
         data(): ComponentData {
@@ -46,7 +44,7 @@
                 { id: 'xxx3', order: 300, text: 'Item 3' }
             ];
 
-            // this.items = await this.httpClient.httpGet<IListItem[]>('/pages');
+            // this.items = await this.$api.httpGet<IListItem[]>('/pages');
         }
     });
 </script>

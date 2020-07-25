@@ -1,10 +1,12 @@
 import Vue from 'vue';
-import Router from 'vue-router';
-import App from './App.vue';
+import { Api } from './plugins/Api';
 
-Vue.use(Router)
+Vue.use(Api);
+
+import App from './App.vue';
+import router from './router';
 
 new Vue({
-    el: '#app',
+    router,
     render: createElement => createElement(App),
-});
+}).$mount('#app');
