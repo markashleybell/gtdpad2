@@ -66,9 +66,9 @@
             await this.loadContent();
         },
         watch: {
-            //async '$route'(to, from) {
-            //    await this.loadContent();
-            //},
+            async '$route'(to, from) {
+                await this.loadContent();
+            },
             async id() {
                 await this.loadContent();
             }

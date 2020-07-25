@@ -1,16 +1,16 @@
 <template>
     <div>
-        <form @submit.prevent="doLogin">
+        <form action="/api/users/authenticate" @submit.prevent="doLogin">
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">
-                    <input v-model="email" class="form-control" />
+                    <input type="text" name="email" v-model="email" class="form-control" />
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Title</label>
                 <div class="col-sm-10">
-                    <input v-model="password" class="form-control" />
+                    <input type="password" name="password" v-model="password" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
@@ -37,7 +37,10 @@
         },
         methods: {
             async doLogin() {
-                console.log(this.email, this.password);
+                const data = { email: this.email, password: this.password };
+                const response = await this.$api.httpPost<any>('/users/authenticate', data);
+                this.$api.setBearerToken(response.token);
+                this.$router.push({ name: 'page' });
             }
         }
     });

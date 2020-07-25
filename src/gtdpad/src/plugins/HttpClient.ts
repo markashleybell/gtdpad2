@@ -1,6 +1,6 @@
 export class HttpClient {
     constructor(private baseUrl: string, private token: string | null) {
-        this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJkZjc3Nzc4Zi0yZWYzLTQ5YWYtYTFhOC1iMWYwNjQ4OTFlZjUiLCJlbWFpbCI6InRlc3R1c2VyQGd0ZHBhZC5jb20iLCJyb2xlIjoiTWVtYmVyIiwibmJmIjoxNTk1NjU3MTM5LCJleHAiOjE1OTU3NDM1MzksImlhdCI6MTU5NTY1NzEzOX0.bLKMXQKBjRjeWTm7B1LUprpi3TKN9otajNKXxdRBrDc';
+        // this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiJkZjc3Nzc4Zi0yZWYzLTQ5YWYtYTFhOC1iMWYwNjQ4OTFlZjUiLCJlbWFpbCI6InRlc3R1c2VyQGd0ZHBhZC5jb20iLCJyb2xlIjoiTWVtYmVyIiwibmJmIjoxNTk1NjU3MTM5LCJleHAiOjE1OTU3NDM1MzksImlhdCI6MTU5NTY1NzEzOX0.bLKMXQKBjRjeWTm7B1LUprpi3TKN9otajNKXxdRBrDc';
     }
 
     public setBearerToken(token: string): void {

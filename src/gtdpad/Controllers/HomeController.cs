@@ -24,6 +24,9 @@ namespace gtdpad.Controllers
         { }
 
         [AllowAnonymous]
+        [Route("")]
+        [Route("{id}")]
+        [Route("users/login")]
         public IActionResult Index()
         {
             var model = new IndexViewModel();
@@ -32,6 +35,7 @@ namespace gtdpad.Controllers
         }
 
         [AllowAnonymous]
+        [Route("routes")]
         public IActionResult Routes() => View();
     }
 }

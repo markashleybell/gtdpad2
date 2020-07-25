@@ -102,15 +102,7 @@ namespace gtdpad
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
-                endpoints.MapDefaultControllerRoute();
-
-                endpoints.MapControllerRoute(
-                    name: "page",
-                    pattern: "/{id}",
-                    defaults: new { controller = "Home", action = "Index" }
-                );
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
