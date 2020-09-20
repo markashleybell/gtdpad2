@@ -23,6 +23,7 @@ namespace gtdpad.Controllers
                 optionsMonitor)
         { }
 
+        /*
         [AllowAnonymous]
         [Route("")]
         [Route("{id}")]
@@ -33,6 +34,7 @@ namespace gtdpad.Controllers
 
             return View(model);
         }
+        */
 
         [AllowAnonymous]
         [Route("routes")]
