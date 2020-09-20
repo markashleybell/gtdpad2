@@ -35,7 +35,6 @@ export default defineComponent({
         };
     },
     async created() {
-        console.log(this.id);
         this.pages = await this.$api.httpGet<IPage[]>('/pages');
     }
 });

@@ -12,9 +12,9 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 
-import List from './List.vue';
+import List from '@/components/List.vue';
 
-import { ISection, SectionType } from '../core/Domain';
+import { ISection, SectionType } from '@/core/Domain';
 
 interface ComponentData {
     title: string;

@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 
-import { IListItem } from '../core/Domain';
+import { IListItem } from '@/core/Domain';
 
 interface ComponentData {
     text: string;
