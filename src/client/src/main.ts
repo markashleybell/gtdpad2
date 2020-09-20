@@ -1,8 +1,11 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import "./registerServiceWorker";
-import router from "./router";
+import { createApp } from 'vue';
+import app from './App.vue';
+import './registerServiceWorker';
+import router from './router';
 
-createApp(App)
+import api from './plugins/Api';
+
+createApp(app)
     .use(router)
-    .mount("#app");
+    .use(api)
+    .mount('#app');

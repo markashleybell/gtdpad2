@@ -39,7 +39,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\src\gtdpad\gtdpad.csproj" />
+        <ProjectReference Include="..\src\server\gtdpad.csproj" />
     </ItemGroup>
 
 </Project>
