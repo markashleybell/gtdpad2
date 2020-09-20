@@ -363,6 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Client-side build artifacts
-**/gtdpad/wwwroot/**/*.js
-**/gtdpad/wwwroot/**/*.css
-**/gtdpad/wwwroot/**/*.map
+**/server/wwwroot/**
