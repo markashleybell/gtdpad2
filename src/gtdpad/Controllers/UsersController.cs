@@ -44,7 +44,7 @@ namespace gtdpad.Controllers
             );
 
             return !valid
-                ? (IActionResult)BadRequest()
+                ? (IActionResult)Unauthorized()
                 : Ok(response);
         }
     }
