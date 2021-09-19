@@ -40,7 +40,7 @@ namespace gtdpad.Controllers
             var (valid, response) = await _userService.Authenticate(
                 email: request.Email,
                 password: request.Password,
-                getExpires: () => DateTime.Now.AddDays(1)
+                getExpires: () => _dateTimeService.Now.AddDays(1)
             );
 
             return !valid
